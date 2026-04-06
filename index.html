@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a0a0a">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>ìë¬¼íì± Dashboard</title>
+<title>식물행성 Dashboard</title>
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -130,12 +130,12 @@ body{font-family:Pretendard,-apple-system,sans-serif;background:var(--bg);color:
 <body>
 <div class="header">
   <div class="header-left">
-    <div class="logo">ð¿</div>
-    <div><h1>ìë¬¼íì±</h1><div class="date" id="headerDate"></div></div>
+    <div class="logo">🌿</div>
+    <div><h1>식물행성</h1><div class="date" id="headerDate"></div></div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <span class="status-badge" id="statusBadge"></span>
-    <button class="refresh-btn" id="refreshBtn" onclick="loadData()">â»</button>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadData()">↻</button>
   </div>
 </div>
 <div class="tab-content active" id="tab-inbox"></div>
@@ -144,52 +144,52 @@ body{font-family:Pretendard,-apple-system,sans-serif;background:var(--bg);color:
 <div class="tab-content" id="tab-skills"></div>
 <div class="tab-content" id="tab-log"></div>
 <nav class="bottom-nav">
-  <button class="nav-item active" data-tab="inbox"><span class="icon">ð¬</span>ëê¸°í¨<span class="nav-badge" id="inboxBadge" style="display:none">0</span></button>
-  <button class="nav-item" data-tab="status"><span class="icon">âï¸</span>íí©</button>
-  <button class="nav-item" data-tab="schedule"><span class="icon">ð</span>ìì½</button>
-  <button class="nav-item" data-tab="skills"><span class="icon">â¨</span>ì¤í¬</button>
-  <button class="nav-item" data-tab="log"><span class="icon">ð</span>ë¡ê·¸</button>
+  <button class="nav-item active" data-tab="inbox"><span class="icon">📬</span>대기함<span class="nav-badge" id="inboxBadge" style="display:none">0</span></button>
+  <button class="nav-item" data-tab="status"><span class="icon">⚙️</span>현황</button>
+  <button class="nav-item" data-tab="schedule"><span class="icon">📅</span>예약</button>
+  <button class="nav-item" data-tab="skills"><span class="icon">✨</span>스킬</button>
+  <button class="nav-item" data-tab="log"><span class="icon">📋</span>로그</button>
 </nav>
 <div class="modal-overlay" id="imageViewer">
   <div class="modal-header">
     <span class="modal-counter" id="viewerCounter"></span>
     <span class="modal-title" id="viewerTitle"></span>
-    <button class="modal-close" onclick="closeViewer()">â</button>
+    <button class="modal-close" onclick="closeViewer()">✕</button>
   </div>
   <div class="viewer-wrap" id="viewerWrap">
     <img class="viewer-img" id="viewerImg">
-    <button class="viewer-nav viewer-prev" onclick="viewerNav(-1)">â¹</button>
-    <button class="viewer-nav viewer-next" onclick="viewerNav(1)">âº</button>
+    <button class="viewer-nav viewer-prev" onclick="viewerNav(-1)">‹</button>
+    <button class="viewer-nav viewer-next" onclick="viewerNav(1)">›</button>
   </div>
   <div class="viewer-dots" id="viewerDots"></div>
 </div>
 <div class="modal-overlay" id="blogReader">
   <div class="modal-header">
     <span class="modal-title" id="readerTitle"></span>
-    <button class="modal-close" onclick="closeReader()">â</button>
+    <button class="modal-close" onclick="closeReader()">✕</button>
   </div>
   <div class="reader-body" id="readerBody"></div>
   <div class="modal-actions">
-    <button class="btn btn-approve" id="readerApprove" style="flex:1">â ê²¼ì ì¹ì¸</button>
-    <button class="btn btn-reject" id="readerReject" style="flex:1">â ë°ë ¤</button>
+    <button class="btn btn-approve" id="readerApprove" style="flex:1">✅ 게시 승인</button>
+    <button class="btn btn-reject" id="readerReject" style="flex:1">❌ 반려</button>
   </div>
 </div>
 <div class="modal-overlay" id="invoiceModal">
   <div class="modal-header">
     <span class="modal-title" id="invoiceTitle"></span>
-    <button class="modal-close" onclick="closeInvoice()">â</button>
+    <button class="modal-close" onclick="closeInvoice()">✕</button>
   </div>
   <div class="detail-body" id="invoiceBody"></div>
   <div class="modal-actions">
-    <button class="btn btn-approve" id="invApprove" style="flex:1">â ì¡ì¥ ìë¡ë</button>
-    <button class="btn btn-reject" id="invReject" style="flex:1">â ë³´ë¥</button>
+    <button class="btn btn-approve" id="invApprove" style="flex:1">✅ 송장 업로드</button>
+    <button class="btn btn-reject" id="invReject" style="flex:1">❌ 보류</button>
   </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
 const REPO='duduri/plant-planet-dashboard',ISSUE_URL=`https://github.com/${REPO}/issues/new`;
 let DATA=null,vImgs=[],vIdx=0,touchX=0;
-const now=new Date(),days=['ì¼','ì','í','ì','ëª©','ê¸','í '];
+const now=new Date(),days=['일','월','화','수','목','금','토'];
 document.getElementById('headerDate').textContent=`${now.getMonth()+1}/${now.getDate()} ${days[now.getDay()]}`;
 document.querySelectorAll('.nav-item').forEach(b=>{b.addEventListener('click',()=>{
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
@@ -199,14 +199,14 @@ document.querySelectorAll('.nav-item').forEach(b=>{b.addEventListener('click',()
 async function loadData(){
   const rb=document.getElementById('refreshBtn');rb.classList.add('spinning');
   try{const r=await fetch('data.json?t='+Date.now());DATA=await r.json();renderAll();}
-  catch(e){console.error(e);showToast('ë°ì´í° ë¡ë ì¤í¨');}
+  catch(e){console.error(e);showToast('데이터 로드 실패');}
   setTimeout(()=>rb.classList.remove('spinning'),800);
 }
 function renderAll(){
   if(!DATA)return;
   const s=DATA.systemStatus||'normal';
   const col={normal:'var(--green)',warning:'var(--orange)',error:'var(--red)'};
-  const lab={normal:'ìì¤í ì ì',warning:'ì£¼ì',error:'ì¤ë¥'};
+  const lab={normal:'시스템 정상',warning:'주의',error:'오류'};
   document.getElementById('statusBadge').innerHTML=`<span class="status-dot" style="background:${col[s]}"></span>${lab[s]}`;
   renderInbox();renderStatus();renderSchedule();renderSkills();renderLog();
 }
@@ -217,71 +217,71 @@ function renderInbox(){
   const badge=document.getElementById('inboxBadge');
   if(total>0){badge.textContent=total;badge.style.display='flex';}else badge.style.display='none';
   let h=`<div class="stats-bar">
-    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${DATA.stats?.todayRuns||0}</div><div class="stat-label">ì¤ë ì¤í</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:${(DATA.stats?.errors||0)>0?'var(--red)':'var(--txt)'}">${DATA.stats?.errors||0}</div><div class="stat-label">ì¤ë¥</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:var(--blue)">${total}</div><div class="stat-label">ì¹ì¸ ëê¸°</div></div>
-    <div class="stat-box"><div class="stat-num">${DATA.stats?.activeSkills||0}</div><div class="stat-label">íì± ì¤í¬</div></div></div>`;
-  h+=`<div class="section-title">ð¨ ì¹´ëë´ì¤ ê²ì ëê¸° <span class="cnt">${cn.length}ê±´</span></div>`;
-  if(!cn.length)h+=`<div class="card"><div class="empty-box">ëê¸°ì¤ì¸ ì¹´ëë´ì¤ê° ììµëë¤</div></div>`;
+    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${DATA.stats?.todayRuns||0}</div><div class="stat-label">오늘 실행</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:${(DATA.stats?.errors||0)>0?'var(--red)':'var(--txt)'}">${DATA.stats?.errors||0}</div><div class="stat-label">오류</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--blue)">${total}</div><div class="stat-label">승인 대기</div></div>
+    <div class="stat-box"><div class="stat-num">${DATA.stats?.activeSkills||0}</div><div class="stat-label">활성 스킬</div></div></div>`;
+  h+=`<div class="section-title">🎨 카드뉴스 게시 대기 <span class="cnt">${cn.length}건</span></div>`;
+  if(!cn.length)h+=`<div class="card"><div class="empty-box">대기중인 카드뉴스가 없습니다</div></div>`;
   cn.forEach((it,i)=>{
-    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">ëê¸°ì¤</span></div>`;
-    h+=`<div class="img-scroll">${(it.images||[]).map((img,j)=>`<img class="img-thumb" src="${img}" onclick="openViewer(${i},${j})" onerror="this.style.background='var(--card2)'">`).join('')}${!(it.images||[]).length?'<div style="width:90px;height:112px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:11px">ë¯¸ë¦¬ë³´ê¸° ìì</div>':''}</div>`;
-    h+=`<div class="caption-preview">ð ${it.caption||'ìº¡ì ìì'}</div>`;
-    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('cardnews','${it.id}','${esc(it.title)}')">â ê²ì ì¹ì¸</button><button class="btn btn-reject" onclick="doReject('cardnews','${it.id}','${esc(it.title)}')">â ë°ë ¤</button></div></div>`;
+    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">대기중</span></div>`;
+    h+=`<div class="img-scroll">${(it.images||[]).map((img,j)=>`<img class="img-thumb" src="${img}" onclick="openViewer(${i},${j})" onerror="this.style.background='var(--card2)'">`).join('')}${!(it.images||[]).length?'<div style="width:90px;height:112px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:11px">미리보기 없음</div>':''}</div>`;
+    h+=`<div class="caption-preview">📝 ${it.caption||'캡션 없음'}</div>`;
+    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('cardnews','${it.id}','${esc(it.title)}')">✅ 게시 승인</button><button class="btn btn-reject" onclick="doReject('cardnews','${it.id}','${esc(it.title)}')">❌ 반려</button></div></div>`;
   });
-  h+=`<div class="section-title">âï¸ ë¸ë¡ê·¸ ê²ì ëê¸° <span class="cnt">${bp.length}ê±´</span></div>`;
-  if(!bp.length)h+=`<div class="card"><div class="empty-box">ëê¸°ì¤ì¸ ë¸ë¡ê·¸ ê¸ì´ ììµëë¤</div></div>`;
+  h+=`<div class="section-title">✍️ 블로그 게시 대기 <span class="cnt">${bp.length}건</span></div>`;
+  if(!bp.length)h+=`<div class="card"><div class="empty-box">대기중인 블로그 글이 없습니다</div></div>`;
   bp.forEach((it,i)=>{
-    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">ëê¸°ì¤</span></div>`;
-    h+=`<div class="blog-excerpt">${it.excerpt||''}</div><button class="read-more" onclick="openBlog(${i})">ì ì²´ ë³´ê¸° â</button>`;
-    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('blog','${it.id}','${esc(it.title)}')">â ê²ì ì¹ì¸</button><button class="btn btn-reject" onclick="doReject('blog','${it.id}','${esc(it.title)}')">â ë°ë ¤</button></div></div>`;
+    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">대기중</span></div>`;
+    h+=`<div class="blog-excerpt">${it.excerpt||''}</div><button class="read-more" onclick="openBlog(${i})">전체 보기 →</button>`;
+    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('blog','${it.id}','${esc(it.title)}')">✅ 게시 승인</button><button class="btn btn-reject" onclick="doReject('blog','${it.id}','${esc(it.title)}')">❌ 반려</button></div></div>`;
   });
-  h+=`<div class="section-title">ð¦ ì¡ì¥ ì²ë¦¬ ëê¸° <span class="cnt">${inv.length}ê±´</span></div>`;
-  if(!inv.length)h+=`<div class="card"><div class="empty-box">ëê¸°ì¤ì¸ ì¡ì¥ ì²ë¦¬ê° ììµëë¤</div></div>`;
+  h+=`<div class="section-title">📦 송장 처리 대기 <span class="cnt">${inv.length}건</span></div>`;
+  if(!inv.length)h+=`<div class="card"><div class="empty-box">대기중인 송장 처리가 없습니다</div></div>`;
   inv.forEach((it,i)=>{
     const chs=it.channels||[],tAmt=chs.reduce((s,c)=>s+(c.amount||0),0),tCnt=chs.reduce((s,c)=>s+(c.count||0),0);
-    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">ëê¸°ì¤</span></div>`;
-    h+=`<table class="invoice-table">${chs.map(c=>`<tr><td>${c.name}</td><td>${c.count}ê±´</td><td>â©${(c.amount||0).toLocaleString()}</td></tr>`).join('')}<tr class="total-row"><td>í¦ê³</td><td>${tCnt}ê±´</td><td>â©${tAmt.toLocaleString()}</td></tr></table>`;
-    h+=`<button class="read-more" onclick="openInvoice(${i})">ìì¸ ë³´ê¸° â</button>`;
-    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('invoice','${it.id}','${esc(it.title)}')">â ì¡ì¥ ìë¡ë</button><button class="btn btn-reject" onclick="doReject('invoice','${it.id}','${esc(it.title)}')">â ë³´ë¥</button></div></div>`;
+    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">대기중</span></div>`;
+    h+=`<table class="invoice-table">${chs.map(c=>`<tr><td>${c.name}</td><td>${c.count}건</td><td>₩${(c.amount||0).toLocaleString()}</td></tr>`).join('')}<tr class="total-row"><td>합계</td><td>${tCnt}건</td><td>₩${tAmt.toLocaleString()}</td></tr></table>`;
+    h+=`<button class="read-more" onclick="openInvoice(${i})">상세 보기 →</button>`;
+    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('invoice','${it.id}','${esc(it.title)}')">✅ 송장 업로드</button><button class="btn btn-reject" onclick="doReject('invoice','${it.id}','${esc(it.title)}')">❌ 보류</button></div></div>`;
   });
   el.innerHTML=h;
 }
 function renderStatus(){
   const el=document.getElementById('tab-status');let h='';
-  h+=`<div class="section-title">âï¸ ìëí íë¡ì¸ì¤</div>`;
+  h+=`<div class="section-title">⚙️ 자동화 프로세스</div>`;
   (DATA.processes||[]).forEach(p=>{
     const cls=p.status==='active'?'check-ok':p.status==='error'?'check-err':'check-warn';
-    const ico=p.status==='active'?'â':p.status==='error'?'â':'â³';
+    const ico=p.status==='active'?'✓':p.status==='error'?'✕':'⏳';
     const col=p.status==='active'?'var(--green)':p.status==='error'?'var(--red)':'var(--orange)';
-    h+=`<div class="process-item"><div class="process-icon">${p.icon||'ð'}</div><div class="process-info"><div class="process-name">${p.name}</div><div class="process-desc">${p.schedule||''}</div><div class="process-status" style="color:${col}">â ${p.lastRun||''}</div></div><div class="process-check ${cls}">${ico}</div></div>`;
+    h+=`<div class="process-item"><div class="process-icon">${p.icon||'📌'}</div><div class="process-info"><div class="process-name">${p.name}</div><div class="process-desc">${p.schedule||''}</div><div class="process-status" style="color:${col}">● ${p.lastRun||''}</div></div><div class="process-check ${cls}">${ico}</div></div>`;
   });
-  h+=`<div class="section-title" style="margin-top:24px">ð API ì°ë</div><div class="card" style="padding:4px 14px">`;
+  h+=`<div class="section-title" style="margin-top:24px">🔗 API 연동</div><div class="card" style="padding:4px 14px">`;
   (DATA.apis||[]).forEach(a=>{
-    const ok=a.status==='connected',col=ok?'var(--green)':'var(--red)',lab=ok?'ì°ê²°ë¨':'ì¤ë¥';
+    const ok=a.status==='connected',col=ok?'var(--green)':'var(--red)',lab=ok?'연결됨':'오류';
     h+=`<div class="api-item"><div class="api-left"><span class="api-dot" style="background:${col}"></span><span class="api-name">${a.name}</span></div><span class="api-badge" style="background:${ok?'rgba(34,197,94,.1)':'rgba(239,68,68,.1)'};color:${col}">${lab}</span></div>`;
   });
   h+=`</div>`;el.innerHTML=h;
 }
 function renderSchedule(){
-  const el=document.getElementById('tab-schedule');let h=`<div class="section-title">ð ìì½ ìì</div>`;
+  const el=document.getElementById('tab-schedule');let h=`<div class="section-title">📅 예약 작업</div>`;
   (DATA.scheduledTasks||[]).forEach(t=>{
-    h+=`<div class="sched-item"><div class="sched-left"><div class="sched-day"><span class="d">${t.day||''}</span>${t.time||''}</div><div><div class="sched-name">${t.name}</div><div class="sched-time">${t.desc||''}</div>${t.lastRunAt?`<div class="sched-time" style="color:var(--green);margin-top:2px">ìµê·¼: ${fmtTime(t.lastRunAt)}</div>`:''}</div></div><span class="${t.enabled!==false?'sched-on':'sched-off'}">${t.enabled!==false?'ON':'OFF'}</span></div>`;
+    h+=`<div class="sched-item"><div class="sched-left"><div class="sched-day"><span class="d">${t.day||''}</span>${t.time||''}</div><div><div class="sched-name">${t.name}</div><div class="sched-time">${t.desc||''}</div>${t.lastRunAt?`<div class="sched-time" style="color:var(--green);margin-top:2px">최근: ${fmtTime(t.lastRunAt)}</div>`:''}</div></div><span class="${t.enabled!==false?'sched-on':'sched-off'}">${t.enabled!==false?'ON':'OFF'}</span></div>`;
   });
   el.innerHTML=h;
 }
 function renderSkills(){
-  const el=document.getElementById('tab-skills');let h=`<div class="section-title">â¨ íì± ì¤í¬</div><div class="skill-grid">`;
+  const el=document.getElementById('tab-skills');let h=`<div class="section-title">✨ 활성 스킬</div><div class="skill-grid">`;
   (DATA.skills||[]).forEach(s=>{h+=`<div class="skill-card"><div class="skill-emoji">${s.emoji}</div><div class="skill-name">${s.name}</div><div class="skill-desc">${s.desc}</div></div>`;});
   h+=`</div>`;el.innerHTML=h;
 }
 function renderLog(){
-  const el=document.getElementById('tab-log');let h=`<div class="section-title">ð íë ë¡ê·¸</div>`;
+  const el=document.getElementById('tab-log');let h=`<div class="section-title">📋 활동 로그</div>`;
   const cols={green:'var(--green)',blue:'var(--blue)',purple:'var(--purple)',orange:'var(--orange)',red:'var(--red)'};
   (DATA.activityLog||[]).forEach(l=>{
     h+=`<div class="log-item"><span class="log-dot" style="background:${cols[l.color]||'var(--txt3)'}"></span><div><div class="log-title">${l.title}</div><div class="log-desc">${l.desc||''}</div><div class="log-time">${l.time||''}</div></div></div>`;
   });
-  if(!(DATA.activityLog||[]).length)h+=`<div class="empty-box">ð­ íë ë¡ê·¸ê° ììµëë¤</div>`;
+  if(!(DATA.activityLog||[]).length)h+=`<div class="empty-box">📭 활동 로그가 없습니다</div>`;
   el.innerHTML=h;
 }
 function openViewer(ci,ii){
@@ -302,7 +302,7 @@ document.getElementById('viewerWrap').addEventListener('touchend',e=>{const d=e.
 function openBlog(i){
   const bp=DATA.pendingApprovals?.blogPosts||[];if(!bp[i])return;const it=bp[i];
   document.getElementById('readerTitle').textContent=it.title;
-  document.getElementById('readerBody').innerHTML=it.fullContent||`<p>${it.excerpt||'ë´ì© ìì'}</p>`;
+  document.getElementById('readerBody').innerHTML=it.fullContent||`<p>${it.excerpt||'내용 없음'}</p>`;
   document.getElementById('readerApprove').onclick=()=>{closeReader();doApprove('blog',it.id,it.title);};
   document.getElementById('readerReject').onclick=()=>{closeReader();doReject('blog',it.id,it.title);};
   document.getElementById('blogReader').classList.add('show');document.body.style.overflow='hidden';
@@ -312,24 +312,24 @@ function openInvoice(i){
   const inv=DATA.pendingApprovals?.invoices||[];if(!inv[i])return;const it=inv[i];
   document.getElementById('invoiceTitle').textContent=it.title;
   let h='';(it.channels||[]).forEach(ch=>{
-    h+=`<div class="detail-section"><h3>${ch.name} (${ch.count}ê±´)</h3>`;
-    if(ch.orders?.length){h+=`<table class="detail-table"><tr><th>ì£¼ë¬¸ë²í¸</th><th>ìí</th><th>ê¸ì¡</th></tr>`;
-      ch.orders.forEach(o=>{h+=`<tr><td>${o.orderNo||'-'}</td><td>${o.product||'-'}</td><td>â©${(o.amount||0).toLocaleString()}</td></tr>`;});
+    h+=`<div class="detail-section"><h3>${ch.name} (${ch.count}건)</h3>`;
+    if(ch.orders?.length){h+=`<table class="detail-table"><tr><th>주문번호</th><th>상품</th><th>금액</th></tr>`;
+      ch.orders.forEach(o=>{h+=`<tr><td>${o.orderNo||'-'}</td><td>${o.product||'-'}</td><td>₩${(o.amount||0).toLocaleString()}</td></tr>`;});
       h+=`</table>`;}h+=`</div>`;});
-  document.getElementById('invoiceBody').innerHTML=h||'<p style="color:var(--txt3)">ìì¸ ì ë³´ ìì</p>';
+  document.getElementById('invoiceBody').innerHTML=h||'<p style="color:var(--txt3)">상세 정보 없음</p>';
   document.getElementById('invApprove').onclick=()=>{closeInvoice();doApprove('invoice',it.id,it.title);};
   document.getElementById('invReject').onclick=()=>{closeInvoice();doReject('invoice',it.id,it.title);};
   document.getElementById('invoiceModal').classList.add('show');document.body.style.overflow='hidden';
 }
 function closeInvoice(){document.getElementById('invoiceModal').classList.remove('show');document.body.style.overflow='';}
 function doApprove(type,id,title){
-  const lab={cardnews:'ì¸ì¤í ê²ì',blog:'ë¸ë¡ê·¸ ê²ì',invoice:'ì¡ì¥ ìë¡ë'};
-  const p=new URLSearchParams({title:`â ì¹ì¸: ${title}`,body:`**íì:** ${type}\n**ID:** ${id}\n**ìì:** ${lab[type]||type}\n**ìê°:** ${new Date().toISOString()}\n\n> ëìë³´ëìì ìë ìì±ë ì¹ì¸ ìì²­ìëë¤.\n> ì´ ì´ìë¥¼ Submitíë© Claudeê° ìë ì²ë¦¬í©ëë¤.`,labels:'dashboard-command,approve'});
-  showToast('â ì¹ì¸ ìì²­ ìì±ì¤...');setTimeout(()=>window.open(`${ISSUE_URL}?${p}`,'_blank'),500);
+  const lab={cardnews:'인스타 게시',blog:'블로그 게시',invoice:'송장 업로드'};
+  const p=new URLSearchParams({title:`✅ 승인: ${title}`,body:`**타입:** ${type}\n**ID:** ${id}\n**작업:** ${lab[type]||type}\n**시각:** ${new Date().toISOString()}\n\n> 대시보드에서 자동 생성된 승인 요청입니다.\n> 이 이슈를 Submit하면 Claude가 자동 처리합니다.`,labels:'dashboard-command,approve'});
+  showToast('✅ 승인 요청 생성중...');setTimeout(()=>window.open(`${ISSUE_URL}?${p}`,'_blank'),500);
 }
 function doReject(type,id,title){
-  const p=new URLSearchParams({title:`â ë°ë ¤: ${title}`,body:`**íì:** ${type}\n**ID:** ${id}\n**ìê°:** ${new Date().toISOString()}\n**ì¬ì :** (ì¬ê¸°ì ì¬ì ë¥¼ ìì±í´ì£¼ì¸ì)\n\n> ëìë³´ëìì ìë ìì±ë ë°ë ¤ ìì²­ìëë¤.`,labels:'dashboard-command,reject'});
-  showToast('â ë°ë ¤ ìì²­ ìì±ì¤...');setTimeout(()=>window.open(`${ISSUE_URL}?${p}`,'_blank'),500);
+  const p=new URLSearchParams({title:`❌ 반려: ${title}`,body:`**타입:** ${type}\n**ID:** ${id}\n**시각:** ${new Date().toISOString()}\n**사유:** (여기에 사유를 작성해주세요)\n\n> 대시보드에서 자동 생성된 반려 요청입니다.`,labels:'dashboard-command,reject'});
+  showToast('❌ 반려 요청 생성중...');setTimeout(()=>window.open(`${ISSUE_URL}?${p}`,'_blank'),500);
 }
 function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 function fmtTime(iso){try{const d=new Date(iso);return`${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;}catch(e){return iso;}}
