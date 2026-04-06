@@ -1,0 +1,106 @@
+name: Dashboard Command Handler
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+jobs:
+  handle-command:
+    if: startsWith(github.event.issue.title, '✅') || startsWith(github.event.issue.title, '❌')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Process dashboard command
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+
+          # Determine action from title emoji
+          if [[ "$ISSUE_TITLE" == ✅* ]]; then
+            ACTION="approve"; VERB="승인"; EMOJI="✅"
+          elif [[ "$ISSUE_TITLE" == ❌* ]]; then
+            ACTION="reject"; VERB="반려"; EMOJI="❌"
+          else
+            echo "Title does not start with ✅ or ❌. Skipping."
+            exit 0
+          fi
+
+          # Extract TYPE and ID from issue body
+          TYPE=$(printf '%s' "$ISSUE_BODY" | grep -oP '\*\*타입:\*\*\s*\K\S+' | head -1 || true)
+          ID=$(printf '%s' "$ISSUE_BODY" | grep -oP '\*\*ID:\*\*\s*\K\S+' | head -1 || true)
+
+          if [ -z "$TYPE" ] || [ -z "$ID" ]; then
+            gh issue comment "$ISSUE_NUM" --body "⚠️ 명령 파싱 실패: 타입 또는 ID를 찾을 수 없습니다. 이 이슈는 대시보드 명령 형식이 아닙니다."
+            gh issue close "$ISSUE_NUM"
+            exit 0
+          fi
+
+          case "$TYPE" in
+            cardnews) KEY="cardNews" ;;
+            blog)     KEY="blogPosts" ;;
+            invoice)  KEY="invoices" ;;
+            *)
+              gh issue comment "$ISSUE_NUM" --body "⚠️ 알 수 없는 타입: \`$TYPE\`"
+              gh issue close "$ISSUE_NUM"
+              exit 0
+              ;;
+          esac
+
+          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          jq --arg k "$KEY" --arg id "$ID" --arg action "$ACTION" --arg ts "$TS" --arg type "$TYPE" '
+            (.pendingApprovals[$k] // []) as $items |
+            ($items | map(select(.id == $id)) | first) as $found |
+            if $found then
+              .pendingApprovals[$k] = ($items | map(select(.id != $id)))
+              | .activityLog = ([{time: $ts, type: $type, id: $id, action: $action, title: ($found.title // "")}] + (.activityLog // []))
+              | .stats.pendingCount = (((.pendingApprovals.cardNews // []) | length) + ((.pendingApprovals.blogPosts // []) | length) + ((.pendingApprovals.invoices // []) | length))
+              | .lastUpdated = $ts
+            else . end
+          ' data.json > data.json.new
+          mv data.json.new data.json
+
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@users.noreply.github.com"
+          git add data.json
+
+          if git diff --staged --quiet; then
+            gh issue comment "$ISSUE_NUM" --body "⚠️ 해당 ID(\`$ID\`)를 pendingApprovals.$KEY 에서 찾을 수 없습니다. 이미 처리되었거나 잘못된 ID입니다."
+            gh issue close "$ISSUE_NUM"
+            exit 0
+          fi
+
+          git commit -m "dashboard: $ACTION $TYPE $ID (issue #$ISSUE_NUM)"
+          git push
+
+          case "$TYPE:$ACTION" in
+            cardnews:approve)
+              COMMENT=$(printf '%s\n\n%s\n\n%s' "$EMOJI **카드뉴스 $VERB 완료**" "data.json이 갱신되었고 activityLog에 기록되었습니다." "📸 **다음 단계(로컬 실행 필요):** \`instagram-upload\` 스킬로 인스타그램 실제 발행을 진행해주세요. (Instagram Graph API 크리덴셜이 로컬에만 있음)")
+              ;;
+            blog:approve)
+              COMMENT=$(printf '%s\n\n%s\n\n%s' "$EMOJI **블로그 $VERB 완료**" "data.json이 갱신되었고 activityLog에 기록되었습니다." "✍️ **다음 단계(로컬 실행 필요):** 네이버 블로그 발행은 로컬 크리덴셜이 필요합니다.")
+              ;;
+            invoice:approve)
+              COMMENT=$(printf '%s\n\n%s\n\n%s' "$EMOJI **송장 $VERB 완료**" "data.json이 갱신되었고 activityLog에 기록되었습니다." "📦 **다음 단계(로컬 실행 필요):** \`invoice-assistant\` 스킬로 4개 판매채널 송장 업로드를 실행하세요.")
+              ;;
+            *:reject)
+              COMMENT=$(printf '%s\n\n%s' "$EMOJI **$TYPE $VERB 처리 완료**" "data.json이 갱신되었고 activityLog에 기록되었습니다.")
+              ;;
+            *)
+              COMMENT="$EMOJI $VERB 처리 완료"
+              ;;
+          esac
+
+          gh issue comment "$ISSUE_NUM" --body "$COMMENT"
+          gh issue close "$ISSUE_NUM"
