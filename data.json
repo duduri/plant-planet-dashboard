@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-04-06T21:47:45.616Z",
+  "lastUpdated": "2026-04-06T23:34:29.359Z",
   "systemStatus": "normal",
   "stats": {
     "todayRuns": 3,
     "errors": 0,
     "activeSkills": 8,
-    "pendingCount": 3
+    "pendingCount": 0
   },
   "apis": [
     {
@@ -42,125 +42,9 @@
     }
   ],
   "pendingApprovals": {
-    "cardNews": [
-      {
-        "id": "cardnews-monstera-20260406",
-        "title": "몬스테라 키우기 완벽 가이드",
-        "createdAt": "2026-04-06T10:30:00+09:00",
-        "images": [
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_1.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_2.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_3.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_4.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_5.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_6.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_7.jpg",
-          "https://duduri.github.io/plant-planet-dashboard/pending/monstera/slide_8.jpg"
-        ],
-        "caption": "🌿 몬스테라 키우기 완벽 가이드\n\n✨ 초보자도 쉽게 키울 수 있는 몬스테라 관리법!\n물주기, 햇빛, 분갈이까지 한 번에 정리했어요.\n\n#식물행성 #몬스테라 #실내식물 #반려식물 #식집사"
-      }
-    ],
-    "blogPosts": [
-      {
-        "id": "blog-rubber-20260406",
-        "title": "김○○ 고객님 댁 고무나무 분갈이 작업 후기",
-        "createdAt": "2026-04-06T15:20:00+09:00",
-        "excerpt": "오늘은 고양시 일산서구 김○○ 고객님 댁에서 고무나무 분갈이 작업을 진행했습니다. 기존 플라스틱 화분에서 이태리 토분으로 교체하며, 뿌리 상태를 꼼꼼히 확인했어요.",
-        "fullContent": "<h2>오늘의 작업</h2><p>오늘은 고양시 일산서구에 위치한 김○○ 고객님 댁에서 고무나무 분갈이 작업을 진행했습니다.</p><h3>작업 내용</h3><p>기존 20cm 플라스틱 화분에서 25cm 이태리 토분으로 교체했습니다. 뿌리 상태는 매우 양호했고, 새 흙은 배수가 잘 되는 다육이용 흙 7:마사 3 비율로 배합했어요.</p><h3>관리 팁</h3><p>고무나무는 햇빛을 좋아하지만 직사광선은 피해주세요. 물은 흙이 완전히 마르면 충분히 주시면 됩니다.</p><p>작업 시간: 약 30분<br>총 견적: 65,000원</p>"
-      }
-    ],
-    "invoices": [
-      {
-        "id": "invoice-20260406",
-        "title": "4/6(월) 판매채널 송장 처리",
-        "createdAt": "2026-04-06T06:04:00+09:00",
-        "channels": [
-          {
-            "name": "스마트스토어",
-            "count": 5,
-            "amount": 245000,
-            "orders": [
-              {
-                "orderNo": "202604060001",
-                "product": "몬스테라 델리시오사",
-                "amount": 55000
-              },
-              {
-                "orderNo": "202604060002",
-                "product": "고무나무 대형",
-                "amount": 75000
-              },
-              {
-                "orderNo": "202604060003",
-                "product": "스킨답서스",
-                "amount": 35000
-              },
-              {
-                "orderNo": "202604060004",
-                "product": "홍콩야자",
-                "amount": 45000
-              },
-              {
-                "orderNo": "202604060005",
-                "product": "테이블야자",
-                "amount": 35000
-              }
-            ]
-          },
-          {
-            "name": "쿠팡",
-            "count": 3,
-            "amount": 135000,
-            "orders": [
-              {
-                "orderNo": "C202604060001",
-                "product": "산세베리아",
-                "amount": 45000
-              },
-              {
-                "orderNo": "C202604060002",
-                "product": "아레카야자",
-                "amount": 55000
-              },
-              {
-                "orderNo": "C202604060003",
-                "product": "파키라",
-                "amount": 35000
-              }
-            ]
-          },
-          {
-            "name": "카페24",
-            "count": 2,
-            "amount": 85000,
-            "orders": [
-              {
-                "orderNo": "CF202604060001",
-                "product": "드라세나",
-                "amount": 45000
-              },
-              {
-                "orderNo": "CF202604060002",
-                "product": "벤자민 고무나무",
-                "amount": 40000
-              }
-            ]
-          },
-          {
-            "name": "오늘의집",
-            "count": 1,
-            "amount": 55000,
-            "orders": [
-              {
-                "orderNo": "OH202604060001",
-                "product": "몬스테라 아단소니",
-                "amount": 55000
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "cardNews": [],
+    "blogPosts": [],
+    "invoices": []
   },
   "processes": [
     {
