@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-04-06T23:34:29.359Z",
+  "lastUpdated": "2026-04-06T23:44:43.404Z",
   "systemStatus": "normal",
   "stats": {
     "todayRuns": 3,
     "errors": 0,
     "activeSkills": 8,
-    "pendingCount": 0
+    "pendingCount": 1
   },
   "apis": [
     {
@@ -42,7 +42,15 @@
     }
   ],
   "pendingApprovals": {
-    "cardNews": [],
+    "cardNews": [
+      {
+        "id": "test-e2e-20260407",
+        "title": "[E2E 테스트] 승인 파이프라인 검증",
+        "createdAt": "2026-04-06T23:44:43.404Z",
+        "images": [],
+        "caption": "🧪 E2E 테스트 항목 — 승인 버튼 누르면 GitHub Action이 실행되어 이 항목을 제거하고 activityLog에 기록합니다."
+      }
+    ],
     "blogPosts": [],
     "invoices": []
   },
