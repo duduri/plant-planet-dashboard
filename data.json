@@ -1,0 +1,135 @@
+{
+  "lastUpdated": "2026-04-06T21:30:00+09:00",
+  "systemStatus": "normal",
+  "apis": [
+    {"name": "Notion API", "status": "connected"},
+    {"name": "Meta 광고 API", "status": "connected"},
+    {"name": "Instagram Graph API", "status": "connected"},
+    {"name": "Google Calendar", "status": "connected"},
+    {"name": "Google Drive", "status": "connected"},
+    {"name": "Gmail", "status": "connected"}
+  ],
+  "processes": [
+    {
+      "icon": "📦", "color": "blue",
+      "name": "주문 자동 수집",
+      "schedule": "매일 06:00 · 3개 플랫폼",
+      "lastRun": "오늘 06:04 완료",
+      "status": "active"
+    },
+    {
+      "icon": "🎨", "color": "purple",
+      "name": "카드뉴스 자동 제작",
+      "schedule": "주 3회 · 화/목/토",
+      "lastRun": "4/4(토) 완료",
+      "status": "active"
+    },
+    {
+      "icon": "📤", "color": "green",
+      "name": "인스타 자동 업로드",
+      "schedule": "30분 간격 감지 · 09~23시",
+      "lastRun": "오늘 12:32 실행",
+      "status": "active"
+    },
+    {
+      "icon": "📊", "color": "orange",
+      "name": "Meta 광고 주간 최적화",
+      "schedule": "매주 월요일 09:00",
+      "lastRun": "오늘 09:01 완료",
+      "status": "active"
+    },
+    {
+      "icon": "📋", "color": "pink",
+      "name": "주간 배치 제작",
+      "schedule": "매주 월요일 22:00",
+      "lastRun": "오늘 22:09 예정",
+      "status": "pending"
+    }
+  ],
+  "scheduledTasks": [
+    {
+      "taskId": "daily-order-collection",
+      "day": "매일", "time": "06:04",
+      "name": "주문 자동 수집",
+      "desc": "3개 플랫폼 주문 수집 · 미수집 시 자동 재시도",
+      "enabled": true,
+      "lastRunAt": "2026-04-06T10:36:10.895Z",
+      "nextRunAt": "2026-04-06T21:03:36.000Z"
+    },
+    {
+      "taskId": "meta-ads-weekly-optimization",
+      "day": "월", "time": "09:01",
+      "name": "Meta 광고 주간 최적화",
+      "desc": "성과 분석 · 리포트 · 저효율 정리 · A/B 테스트",
+      "enabled": true,
+      "lastRunAt": "2026-04-06T00:00:55.324Z",
+      "nextRunAt": "2026-04-13T00:00:55.000Z"
+    },
+    {
+      "taskId": "sikmul-weekly-batch",
+      "day": "월", "time": "22:09",
+      "name": "주간 배치 제작",
+      "desc": "화/목/토 카드뉴스 3건 일괄 제작 → Drive 저장 → Notion 승인대기",
+      "enabled": true,
+      "nextRunAt": "2026-04-06T13:09:24.000Z"
+    },
+    {
+      "taskId": "sikmul-tue-cardnews",
+      "day": "화", "time": "13:04",
+      "name": "화요일 안전망",
+      "desc": "월요일 배치 누락 시 소개형 카드뉴스 자동 제작",
+      "enabled": true,
+      "lastRunAt": "2026-04-01T23:38:36.494Z",
+      "nextRunAt": "2026-04-07T04:04:18.000Z"
+    },
+    {
+      "taskId": "sikmul-thu-cardnews",
+      "day": "목", "time": "11:08",
+      "name": "목요일 안전망",
+      "desc": "월요일 배치 누락 시 문제해결형 카드뉴스 자동 제작",
+      "enabled": true,
+      "lastRunAt": "2026-04-02T02:07:53.764Z",
+      "nextRunAt": "2026-04-09T02:07:35.000Z"
+    },
+    {
+      "taskId": "sikmul-sat-cardnews",
+      "day": "토", "time": "13:06",
+      "name": "토요일 안전망",
+      "desc": "월요일 배치 누락 시 랭킹형 카드뉴스 자동 제작",
+      "enabled": true,
+      "lastRunAt": "2026-04-04T04:06:12.253Z",
+      "nextRunAt": "2026-04-11T04:06:02.000Z"
+    },
+    {
+      "taskId": "cardnews-upload-trigger",
+      "day": "매일", "time": "30분",
+      "name": "인스타 업로드 감지",
+      "desc": "Notion '📤 업로드하기' 상태 감지 → 인스타 자동 업로드",
+      "enabled": true,
+      "lastRunAt": "2026-04-06T12:32:19.698Z",
+      "nextRunAt": "2026-04-06T13:02:08.000Z"
+    }
+  ],
+  "stats": {
+    "todayRuns": 12,
+    "errors": 0,
+    "connectedApis": 6,
+    "activeSkills": 8
+  },
+  "skills": [
+    {"emoji": "📦", "name": "송장비서", "desc": "주문 수집·처리·송장"},
+    {"emoji": "🧾", "name": "견적 생성", "desc": "자동 견적서 산출"},
+    {"emoji": "🎨", "name": "카드뉴스", "desc": "소개형 · 8장 JPEG"},
+    {"emoji": "💬", "name": "대화형 카드뉴스", "desc": "뉴닉 스타일 말풍선"},
+    {"emoji": "🔧", "name": "문제해결 카드뉴스", "desc": "트러블슈팅 콘텐츠"},
+    {"emoji": "🏆", "name": "랭킹 카드뉴스", "desc": "TOP 5 추천형"},
+    {"emoji": "📤", "name": "인스타 업로드", "desc": "캐러셀 자동 게시"},
+    {"emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지"}
+  ],
+  "activityLog": [
+    {"time": "09:01", "title": "Meta 광고 주간 최적화 완료", "desc": "성과 분석 + 저효율 OFF + 리포트 생성", "color": "green"},
+    {"time": "06:04", "title": "주문 자동 수집 완료", "desc": "3개 플랫폼 주문 데이터 수집", "color": "green"},
+    {"time": "12:32", "title": "인스타 업로드 감지 실행", "desc": "Notion 상태 확인", "color": "blue"},
+    {"time": "4/4 13:06", "title": "토요일 랭킹 카드뉴스 완료", "desc": "이번 주 마지막 카드뉴스", "color": "purple"}
+  ]
+}

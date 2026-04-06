@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>식물행성 Dashboard</title>
+
+<!-- PWA -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="식물행성">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;--card:#151515;--card-border:#222;
+    --text:#f0f0f0;--text-sub:#888;
+    --green:#22c55e;--green-dim:rgba(34,197,94,.15);
+    --blue:#3b82f6;--blue-dim:rgba(59,130,246,.12);
+    --orange:#f59e0b;--orange-dim:rgba(245,158,11,.12);
+    --red:#ef4444;--red-dim:rgba(239,68,68,.12);
+    --purple:#a855f7;--purple-dim:rgba(168,85,247,.12);
+    --accent:#22c55e;
+  }
+  body{
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--bg);color:var(--text);
+    min-height:100vh;min-height:100dvh;
+    max-width:430px;margin:0 auto;
+    padding-top:env(safe-area-inset-top,0);
+    padding-bottom:calc(72px + env(safe-area-inset-bottom,12px));
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior-y:contain;
+  }
+  /* Pull-to-refresh indicator */
+  .ptr-indicator{
+    text-align:center;padding:12px 0 0;font-size:12px;color:var(--text-sub);
+    height:0;overflow:hidden;transition:height .2s;
+  }
+  .ptr-indicator.show{height:36px}
+
+  /* Header */
+  .header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,10,10,.85);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    padding:16px 20px 0;
+    border-bottom:1px solid var(--card-border);
+  }
+  .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .header-title{display:flex;align-items:center;gap:10px}
+  .logo{width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+  .header h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
+  .header-date{font-size:13px;color:var(--text-sub);font-weight:500}
+  .header-right{display:flex;align-items:center;gap:12px}
+  .header-status{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:600}
+  .pulse-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+  .refresh-btn{
+    background:none;border:none;font-size:18px;cursor:pointer;
+    padding:4px;border-radius:8px;transition:transform .3s;
+  }
+  .refresh-btn.spinning{animation:spin .8s linear}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* Tabs */
+  .tabs{display:flex;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    padding:10px 16px;font-size:14px;font-weight:600;
+    color:var(--text-sub);border:none;background:none;
+    border-bottom:2px solid transparent;cursor:pointer;
+    white-space:nowrap;transition:all .2s;
+  }
+  .tab.active{color:var(--text);border-bottom-color:var(--accent)}
+
+  /* Content */
+  .content{padding:16px}
+  .tab-content{display:none}.tab-content.active{display:block}
+
+  /* Section */
+  .section{margin-bottom:20px}
+  .section-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px;font-weight:700;color:var(--text-sub);letter-spacing:-.2px}
+  .section-icon{font-size:16px}
+  .section-right{margin-left:auto;font-size:12px;color:var(--green);font-weight:600}
+
+  /* Card */
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 30%,rgba(34,197,94,.03),transparent 60%);pointer-events:none}
+
+  /* API items */
+  .api-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .api-item:last-child{border-bottom:none}
+  .api-left{display:flex;align-items:center;gap:12px}
+  .api-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .api-dot.connected{background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.4)}
+  .api-dot.warning{background:var(--orange);box-shadow:0 0 8px rgba(245,158,11,.4)}
+  .api-dot.error{background:var(--red);box-shadow:0 0 8px rgba(239,68,68,.4)}
+  .api-name{font-size:14px;font-weight:600}
+  .api-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;letter-spacing:.3px}
+  .api-badge.connected{background:var(--green-dim);color:var(--green)}
+  .api-badge.warning{background:var(--orange-dim);color:var(--orange)}
+
+  /* Process items */
+  .process-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .process-item:last-child{border-bottom:none}
+  .process-left{display:flex;align-items:center;gap:12px}
+  .process-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .process-info h4{font-size:14px;font-weight:600;margin-bottom:2px}
+  .process-info p{font-size:12px;color:var(--text-sub)}
+  .last-run{font-size:11px;color:var(--text-sub);margin-top:4px;display:flex;align-items:center;gap:4px}
+  .last-run .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+  .check-icon{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+  .check-icon.active{background:var(--green);color:#fff}
+  .check-icon.pending{background:var(--orange-dim);color:var(--orange)}
+
+  /* Schedule */
+  .schedule-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .schedule-item:last-child{border-bottom:none}
+  .schedule-time-block{min-width:52px;text-align:center;flex-shrink:0}
+  .schedule-day{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;margin-bottom:2px}
+  .schedule-time{font-size:13px;font-weight:600;color:var(--text-sub)}
+  .schedule-info{flex:1}
+  .schedule-info h4{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.3}
+  .schedule-info p{font-size:12px;color:var(--text-sub);line-height:1.4}
+  .schedule-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;flex-shrink:0;margin-top:2px}
+  .schedule-badge.active{background:var(--green-dim);color:var(--green)}
+
+  /* Stats Grid */
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .stat-card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:16px}
+  .stat-label{font-size:12px;color:var(--text-sub);font-weight:600;margin-bottom:6px}
+  .stat-value{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
+  .stat-change{font-size:11px;font-weight:700;display:flex;align-items:center;gap:3px}
+  .stat-change.up{color:var(--green)}.stat-change.down{color:var(--red)}
+
+  /* Mini chart */
+  .mini-chart{display:flex;align-items:flex-end;gap:3px;height:32px;margin-top:8px}
+  .mini-bar{flex:1;border-radius:3px 3px 0 0;min-width:4px;transition:height .3s}
+
+  /* Skill grid */
+  .skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .skill-card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:14px;text-align:center}
+  .skill-emoji{font-size:28px;margin-bottom:8px}
+  .skill-name{font-size:13px;font-weight:700;margin-bottom:4px}
+  .skill-count{font-size:11px;color:var(--text-sub)}
+
+  /* Timeline */
+  .timeline-item{display:flex;gap:12px;padding:12px 0}
+  .timeline-dot-wrap{display:flex;flex-direction:column;align-items:center}
+  .timeline-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .timeline-line{width:2px;flex:1;background:rgba(255,255,255,.06);min-height:20px}
+  .timeline-content h4{font-size:13px;font-weight:600;margin-bottom:2px}
+  .timeline-content p{font-size:12px;color:var(--text-sub)}
+
+  /* Bottom Nav */
+  .bottom-nav{
+    position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+    width:100%;max-width:430px;
+    background:rgba(10,10,10,.92);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-top:1px solid var(--card-border);
+    display:flex;justify-content:space-around;
+    padding:8px 0 env(safe-area-inset-bottom,12px);
+    z-index:100;
+  }
+  .nav-item{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-size:10px;color:var(--text-sub);cursor:pointer;padding:4px 12px;
+    background:none;border:none;
+  }
+  .nav-item.active{color:var(--accent)}
+  .nav-item .nav-icon{font-size:22px}
+
+  /* Refresh info */
+  .refresh-info{text-align:center;padding:20px 0;font-size:12px;color:var(--text-sub)}
+
+  /* Touch feedback */
+  .touchable{transition:transform .1s}
+  .touchable:active{transform:scale(.97)}
+
+  html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<div class="ptr-indicator" id="ptrIndicator">↻ 새로고침 중...</div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">
+      <div class="logo">🌱</div>
+      <div>
+        <h1>식물행성</h1>
+        <div class="header-date" id="currentDate"></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-status" id="systemStatus">
+        <div class="pulse-dot"></div>
+        <span>시스템 정상</span>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="refreshData()">🔄</button>
+    </div>
+  </div>
+  <div class="tabs" id="tabsContainer">
+    <button class="tab active" data-tab="automation">자동화 현황</button>
+    <button class="tab" data-tab="schedule">예약 작업</button>
+    <button class="tab" data-tab="ads">광고</button>
+    <button class="tab" data-tab="skills">스킬</button>
+    <button class="tab" data-tab="log">활동 로그</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- TAB: 자동화 현황 -->
+<div class="tab-content active" id="tab-automation">
+  <div class="section">
+    <div class="section-header"><span class="section-icon">🔗</span> API 연동</div>
+    <div class="card" id="apiList"></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-icon">⚙️</span> 자동화 프로세스</div>
+    <div class="card" id="processList"></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-icon">📈</span> 오늘의 요약</div>
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</div>
+
+<!-- TAB: 예약 작업 -->
+<div class="tab-content" id="tab-schedule">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📅</span> 활성 예약 작업
+      <span class="section-right" id="taskCount"></span>
+    </div>
+    <div class="card" id="scheduleList"></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-icon">⏰</span> 다음 실행 예정</div>
+    <div class="card" id="nextRunList"></div>
+  </div>
+</div>
+
+<!-- TAB: 광고 -->
+<div class="tab-content" id="tab-ads">
+  <div class="section">
+    <div class="section-header"><span class="section-icon">📊</span> Meta 광고 성과</div>
+    <div class="stats-grid">
+      <div class="stat-card touchable">
+        <div class="stat-label">이번 주 도달</div>
+        <div class="stat-value" style="color:var(--blue)">12.4K</div>
+        <div class="stat-change up">↑ 18%</div>
+      </div>
+      <div class="stat-card touchable">
+        <div class="stat-label">클릭수</div>
+        <div class="stat-value" style="color:var(--green)">847</div>
+        <div class="stat-change up">↑ 12%</div>
+      </div>
+      <div class="stat-card touchable">
+        <div class="stat-label">CTR</div>
+        <div class="stat-value" style="color:var(--orange)">2.8%</div>
+        <div class="stat-change up">↑ 0.3%p</div>
+      </div>
+      <div class="stat-card touchable">
+        <div class="stat-label">CPC</div>
+        <div class="stat-value">₩285</div>
+        <div class="stat-change down">↓ 8% 절감</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="stat-label" style="margin-bottom:8px">주간 지출 추이</div>
+      <div class="mini-chart">
+        <div class="mini-bar" style="height:45%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:60%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:55%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:75%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:65%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:80%;background:var(--blue)"></div>
+        <div class="mini-bar" style="height:90%;background:var(--green)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:10px;color:var(--text-sub)">월</span>
+        <span style="font-size:10px;color:var(--text-sub)">화</span>
+        <span style="font-size:10px;color:var(--text-sub)">수</span>
+        <span style="font-size:10px;color:var(--text-sub)">목</span>
+        <span style="font-size:10px;color:var(--text-sub)">금</span>
+        <span style="font-size:10px;color:var(--text-sub)">토</span>
+        <span style="font-size:10px;color:var(--green);font-weight:700">일</span>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="stat-label" style="margin-bottom:12px">주간 최적화 결과</div>
+      <div class="process-item" style="padding-top:0">
+        <div class="process-left">
+          <div class="process-icon" style="background:var(--green-dim)">✅</div>
+          <div class="process-info"><h4>저효율 광고 OFF</h4><p>CTR 1% 미만 2건 비활성화</p></div>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-left">
+          <div class="process-icon" style="background:var(--blue-dim)">🔄</div>
+          <div class="process-info"><h4>A/B 테스트 결과</h4><p>변형 B 승리 → 예산 집중</p></div>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-left">
+          <div class="process-icon" style="background:var(--purple-dim)">💰</div>
+          <div class="process-info"><h4>예산 효율</h4><p>CPC 8% 절감 달성</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: 스킬 -->
+<div class="tab-content" id="tab-skills">
+  <div class="section">
+    <div class="section-header"><span class="section-icon">🧩</span> 활성 스킬</div>
+    <div class="skill-grid" id="skillGrid"></div>
+  </div>
+</div>
+
+<!-- TAB: 활동 로그 -->
+<div class="tab-content" id="tab-log">
+  <div class="section">
+    <div class="section-header"><span class="section-icon">🕐</span> 오늘의 활동</div>
+    <div class="card" id="activityLog"></div>
+  </div>
+  <div class="refresh-info" id="lastUpdated">마지막 업데이트: --</div>
+</div>
+
+</div><!-- /content -->
+
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+  <button class="nav-item active" data-tab="automation"><span class="nav-icon">🏠</span><span>홈</span></button>
+  <button class="nav-item" data-tab="schedule"><span class="nav-icon">📅</span><span>예약</span></button>
+  <button class="nav-item" data-tab="ads"><span class="nav-icon">📊</span><span>광고</span></button>
+  <button class="nav-item" data-tab="skills"><span class="nav-icon">🧩</span><span>스킬</span></button>
+  <button class="nav-item" data-tab="log"><span class="nav-icon">🕐</span><span>로그</span></button>
+</div>
+
+<script>
+// ═══ Tab Switching ═══
+const tabs = document.querySelectorAll('.tab');
+const navItems = document.querySelectorAll('.nav-item');
+const contents = document.querySelectorAll('.tab-content');
+
+function switchTab(id) {
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+  navItems.forEach(n => n.classList.toggle('active', n.dataset.tab === id));
+  contents.forEach(c => c.classList.toggle('active', c.id === 'tab-' + id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+navItems.forEach(n => n.addEventListener('click', () => switchTab(n.dataset.tab)));
+
+// ═══ Date ═══
+const days = ['일','월','화','수','목','금','토'];
+const now = new Date();
+document.getElementById('currentDate').textContent =
+  `${now.getMonth()+1}/${now.getDate()} ${days[now.getDay()]}`;
+
+// ═══ Color Map ═══
+const colorMap = {
+  blue: 'var(--blue-dim)', green: 'var(--green-dim)',
+  orange: 'var(--orange-dim)', purple: 'var(--purple-dim)',
+  pink: 'rgba(236,72,153,.12)', red: 'var(--red-dim)'
+};
+
+// ═══ Render Functions ═══
+function renderApis(apis) {
+  document.getElementById('apiList').innerHTML = apis.map(a => `
+    <div class="api-item">
+      <div class="api-left">
+        <div class="api-dot ${a.status}"></div>
+        <span class="api-name">${a.name}</span>
+      </div>
+      <span class="api-badge ${a.status}">${a.status === 'connected' ? '연결됨' : '확인필요'}</span>
+    </div>
+  `).join('');
+}
+
+function renderProcesses(procs) {
+  document.getElementById('processList').innerHTML = procs.map(p => `
+    <div class="process-item">
+      <div class="process-left">
+        <div class="process-icon" style="background:${colorMap[p.color] || colorMap.blue}">${p.icon}</div>
+        <div class="process-info">
+          <h4>${p.name}</h4>
+          <p>${p.schedule}</p>
+          <div class="last-run">
+            <span class="dot" style="background:var(--${p.status === 'active' ? 'green' : 'blue'})"></span>
+            ${p.lastRun}
+          </div>
+        </div>
+      </div>
+      <div class="check-icon ${p.status === 'active' ? 'active' : 'pending'}">${p.status === 'active' ? '✓' : '⏳'}</div>
+    </div>
+  `).join('');
+}
+
+function renderStats(s) {
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card touchable">
+      <div class="stat-label">자동화 실행</div>
+      <div class="stat-value" style="color:var(--green)">${s.todayRuns}</div>
+      <div class="stat-change up">↑ 정상 실행</div>
+    </div>
+    <div class="stat-card touchable">
+      <div class="stat-label">오류 발생</div>
+      <div class="stat-value">${s.errors}</div>
+      <div class="stat-change up">✓ ${s.errors === 0 ? '무결점' : s.errors + '건'}</div>
+    </div>
+    <div class="stat-card touchable">
+      <div class="stat-label">연결된 API</div>
+      <div class="stat-value" style="color:var(--blue)">${s.connectedApis}</div>
+      <div class="stat-change up">전체 정상</div>
+    </div>
+    <div class="stat-card touchable">
+      <div class="stat-label">활성 스킬</div>
+      <div class="stat-value" style="color:var(--purple)">${s.activeSkills}</div>
+      <div class="stat-change up">↑ 운영 중</div>
+    </div>
+  `;
+}
+
+function renderSchedule(tasks) {
+  document.getElementById('taskCount').textContent = tasks.filter(t => t.enabled).length + '개 활성';
+  document.getElementById('scheduleList').innerHTML = tasks.map(t => `
+    <div class="schedule-item">
+      <div class="schedule-time-block">
+        <div class="schedule-day">${t.day}</div>
+        <div class="schedule-time">${t.time}</div>
+      </div>
+      <div class="schedule-info">
+        <h4>${t.name}</h4>
+        <p>${t.desc}</p>
+      </div>
+      <span class="schedule-badge active">${t.enabled ? '활성' : '중지'}</span>
+    </div>
+  `).join('');
+
+  // Next runs - sort by nextRunAt
+  const upcoming = tasks
+    .filter(t => t.nextRunAt)
+    .sort((a, b) => new Date(a.nextRunAt) - new Date(b.nextRunAt))
+    .slice(0, 3);
+
+  document.getElementById('nextRunList').innerHTML = upcoming.map(t => {
+    const next = new Date(t.nextRunAt);
+    const diff = next - new Date();
+    const mins = Math.floor(diff / 60000);
+    let label = '';
+    if (mins < 0) label = '실행 완료';
+    else if (mins < 60) label = mins + '분 후';
+    else if (mins < 1440) label = Math.floor(mins/60) + '시간 후';
+    else label = Math.floor(mins/1440) + '일 후';
+
+    return `
+      <div class="process-item">
+        <div class="process-left">
+          <div class="process-icon" style="background:var(--blue-dim)">${t.taskId.includes('order') ? '📦' : t.taskId.includes('upload') ? '📤' : '📋'}</div>
+          <div class="process-info">
+            <h4>${t.name}</h4>
+            <p>${next.getMonth()+1}/${next.getDate()} ${String(next.getHours()).padStart(2,'0')}:${String(next.getMinutes()).padStart(2,'0')}</p>
+          </div>
+        </div>
+        <span class="schedule-badge active" style="font-size:11px">${label}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(skills) {
+  document.getElementById('skillGrid').innerHTML = skills.map(s => `
+    <div class="skill-card touchable">
+      <div class="skill-emoji">${s.emoji}</div>
+      <div class="skill-name">${s.name}</div>
+      <div class="skill-count">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderLog(logs) {
+  document.getElementById('activityLog').innerHTML = logs.map((l, i) => `
+    <div class="timeline-item">
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot" style="background:var(--${l.color})"></div>
+        ${i < logs.length - 1 ? '<div class="timeline-line"></div>' : ''}
+      </div>
+      <div class="timeline-content">
+        <h4>${l.title}</h4>
+        <p>${l.time} · ${l.desc}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══ Data Loading ═══
+let DATA = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('./data.json?t=' + Date.now());
+    DATA = await res.json();
+    render(DATA);
+  } catch (e) {
+    console.warn('data.json fetch failed, using embedded fallback');
+  }
+}
+
+function render(d) {
+  renderApis(d.apis);
+  renderProcesses(d.processes);
+  renderStats(d.stats);
+  renderSchedule(d.scheduledTasks);
+  renderSkills(d.skills);
+  renderLog(d.activityLog);
+
+  const updated = new Date(d.lastUpdated);
+  const ago = Math.floor((Date.now() - updated) / 60000);
+  let agoText = '';
+  if (ago < 1) agoText = '방금 전';
+  else if (ago < 60) agoText = ago + '분 전';
+  else if (ago < 1440) agoText = Math.floor(ago/60) + '시간 전';
+  else agoText = Math.floor(ago/1440) + '일 전';
+  document.getElementById('lastUpdated').textContent = '마지막 업데이트: ' + agoText;
+}
+
+async function refreshData() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  await loadData();
+  setTimeout(() => btn.classList.remove('spinning'), 800);
+}
+
+// ═══ Init ═══
+loadData();
+
+// Auto-refresh every 5 minutes
+setInterval(loadData, 5 * 60 * 1000);
+
+// ═══ Service Worker ═══
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+</script>
+
+</body>
+</html>
