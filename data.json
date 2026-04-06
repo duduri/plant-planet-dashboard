@@ -1,6 +1,244 @@
 {
-  "lastUpdated": "2026-04-06T22:00:00+09:00",
+  "lastUpdated": "2026-04-07T06:30:00+09:00",
   "systemStatus": "normal",
+  "apis": [
+    {
+      "name": "Notion API",
+      "status": "connected"
+    },
+    {
+      "name": "Meta 광고 API",
+      "status": "connected"
+    },
+    {
+      "name": "Instagram Graph API",
+      "status": "connected"
+    },
+    {
+      "name": "Google Calendar",
+      "status": "connected"
+    },
+    {
+      "name": "Google Drive",
+      "status": "connected"
+    },
+    {
+      "name": "Gmail",
+      "status": "connected"
+    }
+  ],
+  "processes": [
+    {
+      "name": "주문 수집",
+      "desc": "4개 채널 일일 주문 자동 수집",
+      "lastRun": "2026-04-07 06:03",
+      "status": "active"
+    },
+    {
+      "name": "주간 카드뉴스 배치",
+      "desc": "월요일 밤 화/목/토 3건 일괄 제작",
+      "lastRun": "2026-04-06 22:09",
+      "status": "active"
+    },
+    {
+      "name": "인스타그램 자동 업로드",
+      "desc": "Notion 승인건 30분 간격 발행",
+      "lastRun": "2026-04-06 22:32",
+      "status": "active"
+    },
+    {
+      "name": "Meta 광고 주간 최적화",
+      "desc": "주간 성과 분석 및 A/B 테스트",
+      "lastRun": "2026-04-06 09:00",
+      "status": "active"
+    },
+    {
+      "name": "대시보드 데이터 갱신",
+      "desc": "GitHub Pages data.json 6시간 주기 동기화",
+      "lastRun": "2026-04-07 06:29",
+      "status": "active"
+    }
+  ],
+  "scheduledTasks": [
+    {
+      "taskId": "daily-order-collection",
+      "day": "매일",
+      "time": "06:04 / 08·09·10·11시 재시도",
+      "name": "일일 주문 수집",
+      "desc": "4개 채널 주문 자동 수집 + 미수집 시 재시도",
+      "enabled": true,
+      "lastRunAt": "2026-04-07 06:03",
+      "nextRunAt": "2026-04-07 08:03"
+    },
+    {
+      "taskId": "sikmul-weekly-batch",
+      "day": "월요일",
+      "time": "22:09",
+      "name": "주간 카드뉴스 배치",
+      "desc": "이번 주 화/목/토 3건 제작 + Drive + Notion + 캘린더",
+      "enabled": true,
+      "lastRunAt": "2026-04-06 22:09",
+      "nextRunAt": "2026-04-13 22:09"
+    },
+    {
+      "taskId": "sikmul-tue-cardnews",
+      "day": "화요일",
+      "time": "13:04",
+      "name": "화요일 안전망 (소개형)",
+      "desc": "주간 배치 누락 시 소개형 카드뉴스 백업 생성",
+      "enabled": true,
+      "lastRunAt": "2026-04-02 08:38",
+      "nextRunAt": "2026-04-07 13:04"
+    },
+    {
+      "taskId": "sikmul-thu-cardnews",
+      "day": "목요일",
+      "time": "11:08",
+      "name": "목요일 안전망 (문제해결형)",
+      "desc": "주간 배치 누락 시 트러블슈팅 카드뉴스 백업 생성",
+      "enabled": true,
+      "lastRunAt": "2026-04-02 11:07",
+      "nextRunAt": "2026-04-09 11:07"
+    },
+    {
+      "taskId": "sikmul-sat-cardnews",
+      "day": "토요일",
+      "time": "13:06",
+      "name": "토요일 안전망 (랭킹형)",
+      "desc": "주간 배치 누락 시 TOP 5 랭킹형 카드뉴스 백업 생성",
+      "enabled": true,
+      "lastRunAt": "2026-04-04 13:06",
+      "nextRunAt": "2026-04-11 13:06"
+    },
+    {
+      "taskId": "meta-ads-weekly-optimization",
+      "day": "월요일",
+      "time": "09:01",
+      "name": "Meta 광고 주간 최적화",
+      "desc": "주간 성과 분석·리포트·저효율 광고 정리·A/B 테스트",
+      "enabled": true,
+      "lastRunAt": "2026-04-06 09:00",
+      "nextRunAt": "2026-04-13 09:00"
+    },
+    {
+      "taskId": "cardnews-upload-trigger",
+      "day": "매일",
+      "time": "09:00~22:59 (30분)",
+      "name": "카드뉴스 업로드 트리거",
+      "desc": "Notion 📤 업로드하기 상태 감지 → 인스타 발행",
+      "enabled": true,
+      "lastRunAt": "2026-04-06 22:32",
+      "nextRunAt": "2026-04-07 09:02"
+    },
+    {
+      "taskId": "dashboard-data-refresh",
+      "day": "매일",
+      "time": "6시간 주기",
+      "name": "대시보드 데이터 갱신",
+      "desc": "data.json 최신화 후 GitHub Pages 배포",
+      "enabled": true,
+      "lastRunAt": "2026-04-07 06:29",
+      "nextRunAt": "2026-04-07 12:04"
+    }
+  ],
+  "stats": {
+    "todayRuns": 3,
+    "errors": 0,
+    "connectedApis": 6,
+    "activeSkills": 8
+  },
+  "skills": [
+    {
+      "emoji": "📦",
+      "name": "송장비서",
+      "desc": "주문 수집·처리·송장"
+    },
+    {
+      "emoji": "🧾",
+      "name": "견적 생성",
+      "desc": "자동 견적서 산출"
+    },
+    {
+      "emoji": "🎨",
+      "name": "카드뉴스",
+      "desc": "소개형 · 8장 JPEG"
+    },
+    {
+      "emoji": "💬",
+      "name": "대화형 카드뉴스",
+      "desc": "뉴닉 스타일 말풍선"
+    },
+    {
+      "emoji": "🔧",
+      "name": "문제해결 카드뉴스",
+      "desc": "트러블슈팅 콘텐츠"
+    },
+    {
+      "emoji": "🏆",
+      "name": "랭킹 카드뉴스",
+      "desc": "TOP 5 추천형"
+    },
+    {
+      "emoji": "📤",
+      "name": "인스타 업로드",
+      "desc": "캐러셀 자동 게시"
+    },
+    {
+      "emoji": "✍️",
+      "name": "블로그 라이터",
+      "desc": "분갈이 작업일지"
+    }
+  ],
+  "activityLog": [
+    {
+      "time": "2026-04-07 06:29",
+      "title": "대시보드 데이터 갱신",
+      "desc": "data.json 최신화 및 GitHub Pages 동기화",
+      "color": "purple"
+    },
+    {
+      "time": "2026-04-07 06:03",
+      "title": "일일 주문 수집",
+      "desc": "스마트스토어·쿠팡·카페24·오늘의집 주문 수집",
+      "color": "blue"
+    },
+    {
+      "time": "2026-04-06 22:32",
+      "title": "카드뉴스 업로드 트리거",
+      "desc": "Notion 승인건 인스타그램 발행 점검",
+      "color": "green"
+    },
+    {
+      "time": "2026-04-06 22:09",
+      "title": "주간 카드뉴스 배치",
+      "desc": "이번 주 화/목/토 3건 제작·Drive 저장·Notion 승인대기",
+      "color": "purple"
+    },
+    {
+      "time": "2026-04-06 09:00",
+      "title": "Meta 광고 주간 최적화",
+      "desc": "주간 성과 리포트 + 저효율 광고 정리 + A/B 테스트",
+      "color": "orange"
+    },
+    {
+      "time": "2026-04-04 13:06",
+      "title": "토요일 안전망 (랭킹형)",
+      "desc": "TOP 5 랭킹 카드뉴스 백업 점검",
+      "color": "green"
+    },
+    {
+      "time": "2026-04-02 11:07",
+      "title": "목요일 안전망 (문제해결형)",
+      "desc": "트러블슈팅 카드뉴스 백업 점검",
+      "color": "green"
+    },
+    {
+      "time": "2026-04-02 08:38",
+      "title": "화요일 안전망 (소개형)",
+      "desc": "소개형 카드뉴스 백업 점검",
+      "color": "green"
+    }
+  ],
   "pendingApprovals": {
     "cardNews": [
       {
@@ -42,9 +280,21 @@
             "count": 3,
             "amount": 127000,
             "orders": [
-              {"orderNo": "2026040601234", "product": "ëª¬ì¤íë¼ ìíë´ M", "amount": 45000},
-              {"orderNo": "2026040601235", "product": "ì´íë¦¬í ë¶ 26cm íì´í¸", "amount": 38000},
-              {"orderNo": "2026040601236", "product": "ë¶ê°ì´ í ì¸í¸ 5L", "amount": 44000}
+              {
+                "orderNo": "2026040601234",
+                "product": "ëª¬ì¤íë¼ ìíë´ M",
+                "amount": 45000
+              },
+              {
+                "orderNo": "2026040601235",
+                "product": "ì´íë¦¬í ë¶ 26cm íì´í¸",
+                "amount": 38000
+              },
+              {
+                "orderNo": "2026040601236",
+                "product": "ë¶ê°ì´ í ì¸í¸ 5L",
+                "amount": 44000
+              }
             ]
           },
           {
@@ -52,8 +302,16 @@
             "count": 2,
             "amount": 85000,
             "orders": [
-              {"orderNo": "CP-40601001", "product": "ì¤í¬í¤ ëí", "amount": 52000},
-              {"orderNo": "CP-40601002", "product": "ì ë¡ì¤í¤ íë¶ 28cm", "amount": 33000}
+              {
+                "orderNo": "CP-40601001",
+                "product": "ì¤í¬í¤ ëí",
+                "amount": 52000
+              },
+              {
+                "orderNo": "CP-40601002",
+                "product": "ì ë¡ì¤í¤ íë¶ 28cm",
+                "amount": 33000
+              }
             ]
           },
           {
@@ -61,62 +319,16 @@
             "count": 1,
             "amount": 43000,
             "orders": [
-              {"orderNo": "PL-060401", "product": "ë¦½ì´ë¦¬ì¤ íì ì¸í¸", "amount": 43000}
+              {
+                "orderNo": "PL-060401",
+                "product": "ë¦½ì´ë¦¬ì¤ íì ì¸í¸",
+                "amount": 43000
+              }
             ]
           }
         ],
         "status": "pending"
       }
     ]
-  },
-  "stats": {
-    "todayRuns": 12,
-    "errors": 0,
-    "connectedApis": 6,
-    "activeSkills": 8
-  },
-  "processes": [
-    {"name": "ì£¼ë¬¸ ìë ìì§", "icon": "ð¦", "schedule": "ë§¤ì¼ 06:00 Â· 3ê° íë«í¼", "status": "active", "lastRun": "ì¤ë 06:04 ìë£"},
-    {"name": "ì¹´ëë´ì¤ ìë ì ì", "icon": "ð¨", "schedule": "ì£¼ 3í Â· í/ëª©/í ", "status": "active", "lastRun": "4/4(í ) ìë£"},
-    {"name": "ì¸ì¤í ìë ìë¡ë", "icon": "ð¸", "schedule": "30ë¶ ê°ê²© ê°ì§ Â· 09~23ì", "status": "active", "lastRun": "ì¤ë 12:32 ì¤í"},
-    {"name": "Meta ê´ê³  ìµì í", "icon": "ð", "schedule": "ë§¤ì£¼ ì 09:00", "status": "active", "lastRun": "ì¤ë 09:00 ìë£"},
-    {"name": "ì£¼ê° ì¤ì  ë¦¬í¬í¸", "icon": "ð", "schedule": "ë§¤ì£¼ ì¼ 20:00", "status": "active", "lastRun": "4/5(ì¼) ìë£"}
-  ],
-  "apis": [
-    {"name": "Notion API", "status": "connected"},
-    {"name": "Meta ê´ê³  API", "status": "connected"},
-    {"name": "Instagram Graph API", "status": "connected"},
-    {"name": "Google Calendar", "status": "connected"},
-    {"name": "Google Drive", "status": "connected"},
-    {"name": "Gmail", "status": "connected"}
-  ],
-  "scheduledTasks": [
-    {"day": "ë§¤ì¼", "time": "06:00", "name": "ì£¼ë¬¸ ìë ìì§", "desc": "ì¤ë§í¸ì¤í ì´Â·ì¿ í¡Â·ì¹´í24 ìì§", "enabled": true, "lastRunAt": "2026-04-06T06:04:00+09:00"},
-    {"day": "íëª©í ", "time": "09:00", "name": "ì¹´ëë´ì¤ ìë ì ì", "desc": "ì¹ë¦¬ìì¹ â PIL ë ëë§", "enabled": true, "lastRunAt": "2026-04-05T09:02:00+09:00"},
-    {"day": "ë§¤ì¼", "time": "09~23", "name": "ì¸ì¤í ìë¡ë ê°ì§", "desc": "30ë¶ ê°ê²© ëê¸° í­ëª© ì²´í¬", "enabled": true, "lastRunAt": "2026-04-06T12:32:00+09:00"},
-    {"day": "ì", "time": "09:00", "name": "Meta ê´ê³  ìµì í", "desc": "ì£¼ê° ì±ê³¼ ë¶ì Â· ìì°° ì¡°ì ", "enabled": true, "lastRunAt": "2026-04-06T09:00:00+09:00"},
-    {"day": "ì¼", "time": "20:00", "name": "ì£¼ê° ì¤ì  ë¦¬í¬í¸", "desc": "ë§¤ì¶Â·ê´ê³ Â·ì½íì¸  íµí© ë¦¬í¬í¸", "enabled": true, "lastRunAt": "2026-04-05T20:01:00+09:00"},
-    {"day": "6ìê°", "time": "ë§ë¤", "name": "ëìë³´ë ë°ì´í° ê°±ì ", "desc": "data.json ìë ìë°ì´í¸", "enabled": true, "lastRunAt": "2026-04-06T18:00:00+09:00"},
-    {"day": "ë§¤ì¼", "time": "07:00", "name": "ê²¬ì ì ìë ìì±", "desc": "Tally ì ìê±´ íì¸ Â· ê²¬ì  ì°ì¶", "enabled": true, "lastRunAt": "2026-04-06T07:00:00+09:00"}
-  ],
-  "skills": [
-    {"emoji": "ð¦", "name": "ì¡ì¥ë¹ì", "desc": "ì£¼ë¬¸ ìì§Â·ì²ë¦¬Â·ì¡ì¥"},
-    {"emoji": "ð§¾", "name": "ê²¬ì  ìì±", "desc": "ìë ê²¬ì ì ì°ì¶"},
-    {"emoji": "ð¨", "name": "ì¹´ëë´ì¤", "desc": "ìê°í Â· 8ì¥ JPEG"},
-    {"emoji": "ð¬", "name": "ëíí ì¹´ëë´ì¤", "desc": "ë´ë ì¤íì¼ ë§íì "},
-    {"emoji": "ð§", "name": "ë¬¸ì í´ê²° ì¹´ëë´ì¤", "desc": "í¸ë¬ë¸ìí ì½íì¸ "},
-    {"emoji": "ð", "name": "ë­í¹ ì¹´ëë´ì¤", "desc": "TOP 5 ì¶ì²í"},
-    {"emoji": "ð¤", "name": "ì¸ì¤í ìë¡ë", "desc": "ìºë¬ì ìë ê²ì"},
-    {"emoji": "âï¸", "name": "ë¸ë¡ê·¸ ë¼ì´í°", "desc": "ë¶ê°ì´ ììì¼ì§"}
-  ],
-  "activityLog": [
-    {"time": "22:00", "title": "ëìë³´ë v2 ë°°í¬", "desc": "ì¹ì¸ ëê¸°í¨ Â· ì´ë¯¸ì§ë·°ì´ Â· ë¸ë¡ê·¸ë¦¬ë ì¶ê°", "color": "purple"},
-    {"time": "15:20", "title": "ë¸ë¡ê·¸ ìì± ìë£", "desc": "ê¹ë¯¼ì ê³ ê° ë¶ê°ì´ ììì¼ì§ â ì¹ì¸ ëê¸°", "color": "blue"},
-    {"time": "12:32", "title": "ì¸ì¤í ìë¡ë ê°ì§", "desc": "ëê¸°ì¤ì¸ ê²ìë¬¼ ìì â ì¤íµ", "color": "green"},
-    {"time": "10:30", "title": "ì¹´ëë´ì¤ ìì± ìë£", "desc": "ëª¬ì¤íë¼ í¤ì°ê¸° ê°ì´ë 8ì¥ â ì¹ì¸ ëê¸°", "color": "blue"},
-    {"time": "09:00", "title": "Meta ê´ê³  ìµì í ì¤í", "desc": "CPC 12% ê°ì , ë¸ì¶ 8% ì¦ê°", "color": "orange"},
-    {"time": "07:00", "title": "ê²¬ì ì ìë ìì±", "desc": "ì ê· ì ì 0ê±´ â ì¤íµ", "color": "green"},
-    {"time": "06:04", "title": "ì£¼ë¬¸ ìì§ ìë£", "desc": "ì¤ë§í¸ì¤í ì´ 3ê±´, ì¿ í¡ 2ê±´, ì¹´í24 1ê±´ â ì¡ì¥ ëê¸°", "color": "green"},
-    {"time": "00:00", "title": "ì¼ì¼ ì´ê¸°í", "desc": "ë¡ê·¸ ì ë¦¬ Â· ì ë ì§ ìì", "color": "purple"}
-  ]
+  }
 }
