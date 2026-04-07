@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T16:52:00+09:00",
+  "lastUpdated": "2026-04-07T17:00:00+09:00",
   "systemStatus": "normal",
   "apis": [
     { "name": "Notion API", "status": "connected" },
@@ -129,8 +129,8 @@
       "name": "대시보드 동기화",
       "desc": "Notion 파이프라인 → data.json → GitHub Pages 배포",
       "enabled": true,
-      "lastRunAt": "2026-04-07T07:31:15.466Z",
-      "nextRunAt": "2026-04-07T07:49:42.000Z"
+      "lastRunAt": "2026-04-07T07:52:15.083Z",
+      "nextRunAt": "2026-04-07T08:04:42.000Z"
     }
   ],
   "stats": {
@@ -151,6 +151,20 @@
     { "emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지" }
   ],
   "activityLog": [
+    {
+      "time": "2026-04-07T07:52:15Z",
+      "type": "schedule",
+      "id": "dashboard-data-refresh",
+      "action": "run",
+      "title": "대시보드 동기화 실행"
+    },
+    {
+      "time": "2026-04-07T07:31:15Z",
+      "type": "schedule",
+      "id": "cardnews-upload-trigger",
+      "action": "run",
+      "title": "인스타 업로드 감지 실행"
+    },
     {
       "time": "2026-04-07T04:05:54Z",
       "type": "schedule",
@@ -185,6 +199,13 @@
       "id": "sikmul-sat-cardnews",
       "action": "run",
       "title": "토요일 랭킹 카드뉴스 완료"
+    },
+    {
+      "time": "2026-04-02T02:07:53Z",
+      "type": "schedule",
+      "id": "sikmul-thu-cardnews",
+      "action": "run",
+      "title": "목요일 문제해결 카드뉴스 완료"
     }
   ],
   "pendingApprovals": {
