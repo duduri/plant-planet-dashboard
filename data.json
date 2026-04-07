@@ -1,31 +1,13 @@
 {
-  "lastUpdated": "2026-04-07T14:15:00+09:00",
+  "lastUpdated": "2026-04-07T16:52:00+09:00",
   "systemStatus": "normal",
   "apis": [
-    {
-      "name": "Notion API",
-      "status": "connected"
-    },
-    {
-      "name": "Meta 광고 API",
-      "status": "connected"
-    },
-    {
-      "name": "Instagram Graph API",
-      "status": "connected"
-    },
-    {
-      "name": "Google Calendar",
-      "status": "connected"
-    },
-    {
-      "name": "Google Drive",
-      "status": "connected"
-    },
-    {
-      "name": "Gmail",
-      "status": "connected"
-    }
+    { "name": "Notion API", "status": "connected" },
+    { "name": "Meta 광고 API", "status": "connected" },
+    { "name": "Instagram Graph API", "status": "connected" },
+    { "name": "Google Calendar", "status": "connected" },
+    { "name": "Google Drive", "status": "connected" },
+    { "name": "Gmail", "status": "connected" }
   ],
   "processes": [
     {
@@ -33,7 +15,7 @@
       "color": "blue",
       "name": "주문 자동 수집",
       "schedule": "매일 06:00 · 3개 플랫폼",
-      "lastRun": "오늘 06:04 완료",
+      "lastRun": "오늘 11:03 완료",
       "status": "active"
     },
     {
@@ -41,7 +23,7 @@
       "color": "purple",
       "name": "카드뉴스 자동 제작",
       "schedule": "주 3회 · 화/목/토",
-      "lastRun": "4/4(토) 완료",
+      "lastRun": "오늘 13:05 (화) 완료",
       "status": "active"
     },
     {
@@ -49,7 +31,7 @@
       "color": "green",
       "name": "인스타 자동 업로드",
       "schedule": "30분 간격 감지 · 09~23시",
-      "lastRun": "오늘 12:32 실행",
+      "lastRun": "오늘 16:31 실행",
       "status": "active"
     },
     {
@@ -57,16 +39,16 @@
       "color": "orange",
       "name": "Meta 광고 주간 최적화",
       "schedule": "매주 월요일 09:00",
-      "lastRun": "오늘 09:01 완료",
+      "lastRun": "4/6(월) 09:01 완료",
       "status": "active"
     },
     {
       "icon": "📋",
       "color": "pink",
       "name": "주간 배치 제작",
-      "schedule": "매주 월요일 22:00",
-      "lastRun": "오늘 22:09 예정",
-      "status": "pending"
+      "schedule": "매주 월요일 22:09",
+      "lastRun": "4/6(월) 22:09 완료",
+      "status": "active"
     }
   ],
   "scheduledTasks": [
@@ -77,8 +59,8 @@
       "name": "주문 자동 수집",
       "desc": "3개 플랫폼 주문 수집 · 미수집 시 자동 재시도",
       "enabled": true,
-      "lastRunAt": "2026-04-06T10:36:10.895Z",
-      "nextRunAt": "2026-04-06T21:03:36.000Z"
+      "lastRunAt": "2026-04-07T02:03:42.070Z",
+      "nextRunAt": "2026-04-07T21:03:36.000Z"
     },
     {
       "taskId": "meta-ads-weekly-optimization",
@@ -97,7 +79,8 @@
       "name": "주간 배치 제작",
       "desc": "화/목/토 카드뉴스 3건 일괄 제작 → Drive 저장 → Notion 승인대기",
       "enabled": true,
-      "nextRunAt": "2026-04-06T13:09:24.000Z"
+      "lastRunAt": "2026-04-06T13:09:36.440Z",
+      "nextRunAt": "2026-04-13T13:09:24.000Z"
     },
     {
       "taskId": "sikmul-tue-cardnews",
@@ -106,8 +89,8 @@
       "name": "화요일 안전망",
       "desc": "월요일 배치 누락 시 소개형 카드뉴스 자동 제작",
       "enabled": true,
-      "lastRunAt": "2026-04-01T23:38:36.494Z",
-      "nextRunAt": "2026-04-07T04:04:18.000Z"
+      "lastRunAt": "2026-04-07T04:05:54.887Z",
+      "nextRunAt": "2026-04-14T04:04:18.000Z"
     },
     {
       "taskId": "sikmul-thu-cardnews",
@@ -136,94 +119,88 @@
       "name": "인스타 업로드 감지",
       "desc": "Notion '📤 업로드하기' 상태 감지 → 인스타 자동 업로드",
       "enabled": true,
-      "lastRunAt": "2026-04-06T12:32:19.698Z",
-      "nextRunAt": "2026-04-06T13:02:08.000Z"
+      "lastRunAt": "2026-04-07T07:31:15.462Z",
+      "nextRunAt": "2026-04-07T08:02:08.000Z"
+    },
+    {
+      "taskId": "dashboard-data-refresh",
+      "day": "매일",
+      "time": "15분",
+      "name": "대시보드 동기화",
+      "desc": "Notion 파이프라인 → data.json → GitHub Pages 배포",
+      "enabled": true,
+      "lastRunAt": "2026-04-07T07:31:15.466Z",
+      "nextRunAt": "2026-04-07T07:49:42.000Z"
     }
   ],
   "stats": {
-    "todayRuns": 12,
+    "todayRuns": 4,
     "errors": 0,
     "connectedApis": 6,
     "activeSkills": 8,
-    "pendingCount": 1
+    "pendingCount": 2
   },
   "skills": [
-    {
-      "emoji": "📦",
-      "name": "송장비서",
-      "desc": "주문 수집·처리·송장"
-    },
-    {
-      "emoji": "🧾",
-      "name": "견적 생성",
-      "desc": "자동 견적서 산출"
-    },
-    {
-      "emoji": "🎨",
-      "name": "카드뉴스",
-      "desc": "소개형 · 8장 JPEG"
-    },
-    {
-      "emoji": "💬",
-      "name": "대화형 카드뉴스",
-      "desc": "뉴닉 스타일 말풍선"
-    },
-    {
-      "emoji": "🔧",
-      "name": "문제해결 카드뉴스",
-      "desc": "트러블슈팅 콘텐츠"
-    },
-    {
-      "emoji": "🏆",
-      "name": "랭킹 카드뉴스",
-      "desc": "TOP 5 추천형"
-    },
-    {
-      "emoji": "📤",
-      "name": "인스타 업로드",
-      "desc": "캐러셀 자동 게시"
-    },
-    {
-      "emoji": "✍️",
-      "name": "블로그 라이터",
-      "desc": "분갈이 작업일지"
-    }
+    { "emoji": "📦", "name": "송장비서", "desc": "주문 수집·처리·송장" },
+    { "emoji": "🧾", "name": "견적 생성", "desc": "자동 견적서 산출" },
+    { "emoji": "🎨", "name": "카드뉴스", "desc": "소개형 · 8장 JPEG" },
+    { "emoji": "💬", "name": "대화형 카드뉴스", "desc": "뉴닉 스타일 말풍선" },
+    { "emoji": "🔧", "name": "문제해결 카드뉴스", "desc": "트러블슈팅 콘텐츠" },
+    { "emoji": "🏆", "name": "랭킹 카드뉴스", "desc": "TOP 5 추천형" },
+    { "emoji": "📤", "name": "인스타 업로드", "desc": "캐러셀 자동 게시" },
+    { "emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지" }
   ],
   "activityLog": [
     {
-      "time": "2026-04-07T04:20:52Z",
-      "type": "cardnews",
-      "id": "336500b0-aeae-8191-826b-def910fbe01b",
-      "action": "approve",
-      "title": "디시디아 잎 케어 트러블슈팅"
+      "time": "2026-04-07T04:05:54Z",
+      "type": "schedule",
+      "id": "sikmul-tue-cardnews",
+      "action": "run",
+      "title": "화요일 안전망 카드뉴스 실행"
     },
     {
-      "time": "09:01",
-      "title": "Meta 광고 주간 최적화 완료",
-      "desc": "성과 분석 + 저효율 OFF + 리포트 생성",
-      "color": "green"
+      "time": "2026-04-07T02:03:42Z",
+      "type": "schedule",
+      "id": "daily-order-collection",
+      "action": "run",
+      "title": "주문 자동 수집 완료"
     },
     {
-      "time": "06:04",
-      "title": "주문 자동 수집 완료",
-      "desc": "3개 플랫폼 주문 데이터 수집",
-      "color": "green"
+      "time": "2026-04-06T13:09:36Z",
+      "type": "schedule",
+      "id": "sikmul-weekly-batch",
+      "action": "run",
+      "title": "주간 배치 제작 완료"
     },
     {
-      "time": "12:32",
-      "title": "인스타 업로드 감지 실행",
-      "desc": "Notion 상태 확인",
-      "color": "blue"
+      "time": "2026-04-06T00:00:55Z",
+      "type": "schedule",
+      "id": "meta-ads-weekly-optimization",
+      "action": "run",
+      "title": "Meta 광고 주간 최적화 완료"
     },
     {
-      "time": "4/4 13:06",
-      "title": "토요일 랭킹 카드뉴스 완료",
-      "desc": "이번 주 마지막 카드뉴스",
-      "color": "purple"
+      "time": "2026-04-04T04:06:12Z",
+      "type": "schedule",
+      "id": "sikmul-sat-cardnews",
+      "action": "run",
+      "title": "토요일 랭킹 카드뉴스 완료"
     }
   ],
   "pendingApprovals": {
     "cardNews": [
+      {
+        "id": "336500b0-aeae-8191-826b-def910fbe01b",
+        "title": "디시디아 잎 케어 트러블슈팅",
+        "contentType": "🚑 문제해결형",
+        "scheduledDate": "2026-04-09",
+        "uploadDay": "목요일",
+        "plantKey": "dischidia_leaf_care",
+        "notionUrl": "https://www.notion.so/336500b0aeae8191826bdef910fbe01b",
+        "createdAt": "2026-04-02T11:56:00+09:00",
+        "caption": "",
+        "images": []
+      },
       {
         "id": "33a500b0-aeae-810e-88e4-dc00cfff15d6",
         "title": "공기정화 식물 TOP 5",
