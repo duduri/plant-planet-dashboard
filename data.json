@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T13:09:12+09:00",
+  "lastUpdated": "2026-04-07T04:20:52Z",
   "systemStatus": "normal",
   "apis": [
     {
@@ -144,7 +144,8 @@
     "todayRuns": 12,
     "errors": 0,
     "connectedApis": 6,
-    "activeSkills": 8
+    "activeSkills": 8,
+    "pendingCount": 1
   },
   "skills": [
     {
@@ -190,6 +191,13 @@
   ],
   "activityLog": [
     {
+      "time": "2026-04-07T04:20:52Z",
+      "type": "cardnews",
+      "id": "336500b0-aeae-8191-826b-def910fbe01b",
+      "action": "approve",
+      "title": "디시디아 잎 케어 트러블슈팅"
+    },
+    {
       "time": "09:01",
       "title": "Meta 광고 주간 최적화 완료",
       "desc": "성과 분석 + 저효율 OFF + 리포트 생성",
@@ -216,18 +224,6 @@
   ],
   "pendingApprovals": {
     "cardNews": [
-      {
-        "id": "336500b0-aeae-8191-826b-def910fbe01b",
-        "title": "디시디아 잎 케어 트러블슈팅",
-        "contentType": "🚑 문제해결형",
-        "scheduledDate": "2026-04-09",
-        "uploadDay": "목요일",
-        "plantKey": "dischidia_leaf_care",
-        "notionUrl": "https://www.notion.so/336500b0aeae8191826bdef910fbe01b",
-        "createdAt": "2026-04-02T02:56:00+09:00",
-        "caption": "",
-        "images": []
-      },
       {
         "id": "33a500b0-aeae-810e-88e4-dc00cfff15d6",
         "title": "공기정화 식물 TOP 5",
