@@ -1,13 +1,31 @@
 {
-  "lastUpdated": "2026-04-07T17:35:00+09:00",
+  "lastUpdated": "2026-04-07T17:52:18+09:00",
   "systemStatus": "normal",
   "apis": [
-    { "name": "Notion API", "status": "connected" },
-    { "name": "Meta 광고 API", "status": "connected" },
-    { "name": "Instagram Graph API", "status": "connected" },
-    { "name": "Google Calendar", "status": "connected" },
-    { "name": "Google Drive", "status": "connected" },
-    { "name": "Gmail", "status": "connected" }
+    {
+      "name": "Notion API",
+      "status": "connected"
+    },
+    {
+      "name": "Meta 광고 API",
+      "status": "connected"
+    },
+    {
+      "name": "Instagram Graph API",
+      "status": "connected"
+    },
+    {
+      "name": "Google Calendar",
+      "status": "connected"
+    },
+    {
+      "name": "Google Drive",
+      "status": "connected"
+    },
+    {
+      "name": "Gmail",
+      "status": "connected"
+    }
   ],
   "processes": [
     {
@@ -57,7 +75,7 @@
       "day": "매일",
       "time": "06:04",
       "name": "주문 자동 수집",
-      "desc": "3개 플랫폼 주문 수집 · 미수직 시 자동 재시도",
+      "desc": "3개 플랫폼 주문 수집 · 미수집 시 자동 재시도",
       "enabled": true,
       "lastRunAt": "2026-04-07T02:03:42.070Z",
       "nextRunAt": "2026-04-07T21:03:36.000Z"
@@ -129,8 +147,8 @@
       "name": "대시보드 동기화",
       "desc": "Notion 파이프라인 → data.json → GitHub Pages 배포",
       "enabled": true,
-      "lastRunAt": "2026-04-07T08:34:57.313Z",
-      "nextRunAt": "2026-04-07T08:49:42.000Z"
+      "lastRunAt": "2026-04-07T08:49:57.408Z",
+      "nextRunAt": "2026-04-07T09:04:42.000Z"
     }
   ],
   "stats": {
@@ -141,18 +159,50 @@
     "pendingCount": 2
   },
   "skills": [
-    { "emoji": "📦", "name": "송장비서", "desc": "주문 수집·처리·송장" },
-    { "emoji": "🧾", "name": "견적 생성", "desc": "자동 견적서 산출" },
-    { "emoji": "🎨", "name": "카드뉴스", "desc": "소개형 · 8장 JPEG" },
-    { "emoji": "💬", "name": "대화형 카드뉴스", "desc": "뉴닉 스타일 말풍선" },
-    { "emoji": "🔧", "name": "문제해결 카드뉴스", "desc": "트러블슈팅 콘텐츠" },
-    { "emoji": "🏆", "name": "랭킹 카드뉴스", "desc": "TOP 5 추천형" },
-    { "emoji": "📤", "name": "인스타 업로드", "desc": "캐러셀 자동 게시" },
-    { "emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지" }
+    {
+      "emoji": "📦",
+      "name": "송장비서",
+      "desc": "주문 수집·처리·송장"
+    },
+    {
+      "emoji": "🧾",
+      "name": "견적 생성",
+      "desc": "자동 견적서 산출"
+    },
+    {
+      "emoji": "🎨",
+      "name": "카드뉴스",
+      "desc": "소개형 · 8장 JPEG"
+    },
+    {
+      "emoji": "💬",
+      "name": "대화형 카드뉴스",
+      "desc": "뉴닉 스타일 말풍선"
+    },
+    {
+      "emoji": "🔧",
+      "name": "문제해결 카드뉴스",
+      "desc": "트러블슈팅 콘텐츠"
+    },
+    {
+      "emoji": "🏆",
+      "name": "랭킹 카드뉴스",
+      "desc": "TOP 5 추천형"
+    },
+    {
+      "emoji": "📤",
+      "name": "인스타 업로드",
+      "desc": "캐러셀 자동 게시"
+    },
+    {
+      "emoji": "✍️",
+      "name": "블로그 라이터",
+      "desc": "분갈이 작업일지"
+    }
   ],
   "activityLog": [
     {
-      "time": "2026-04-07T08:34:57Z",
+      "time": "2026-04-07T08:49:57Z",
       "type": "schedule",
       "id": "dashboard-data-refresh",
       "action": "run",
