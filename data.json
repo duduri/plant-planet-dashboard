@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T16:52:29Z",
+  "lastUpdated": "2026-04-08T07:13:30+09:00",
   "systemStatus": "normal",
   "apis": [
     {
@@ -74,17 +74,13 @@
       "taskId": "daily-order-collection",
       "description": "매일 아침 주문 수집 (6/7/8시 - 미수집 시 자동 재시도)",
       "schedule": "At 06:04 AM, every day",
-      "cronExpression": "2 6,8,9,10,11 * * *",
-      "enabled": true,
-      "nextRunAt": "2026-04-07T21:03:36.000Z",
-      "lastRunAt": "2026-04-07T02:03:42.070Z"
+      "nextRunAt": "2026-04-07T23:03:36.000Z",
+      "lastRunAt": "2026-04-07T21:03:58.251Z"
     },
     {
       "taskId": "sikmul-tue-cardnews",
       "description": "화요일 안전망 — 월요일 배치 누락 시 소개형 카드뉴스 제작 + 알림",
       "schedule": "At 01:04 PM, only on Tuesday",
-      "cronExpression": "0 13 * * 2",
-      "enabled": true,
       "nextRunAt": "2026-04-14T04:04:18.000Z",
       "lastRunAt": "2026-04-07T04:05:54.887Z"
     },
@@ -92,8 +88,6 @@
       "taskId": "sikmul-thu-cardnews",
       "description": "목요일 안전망 — 월요일 배치 누락 시 문제해결형 카드뉴스 제작 + 알림",
       "schedule": "At 11:08 AM, only on Thursday",
-      "cronExpression": "0 11 * * 4",
-      "enabled": true,
       "nextRunAt": "2026-04-09T02:07:35.000Z",
       "lastRunAt": "2026-04-02T02:07:53.764Z"
     },
@@ -101,8 +95,6 @@
       "taskId": "sikmul-sat-cardnews",
       "description": "토요일 안전망 — 월요일 배치 누락 시 랭킹형 카드뉴스 제작 + 알림",
       "schedule": "At 01:06 PM, only on Saturday",
-      "cronExpression": "0 13 * * 6",
-      "enabled": true,
       "nextRunAt": "2026-04-11T04:06:02.000Z",
       "lastRunAt": "2026-04-04T04:06:12.253Z"
     },
@@ -110,8 +102,6 @@
       "taskId": "meta-ads-weekly-optimization",
       "description": "식물행성 메타광고 주간 성과 분석, 리포트 작성, 저효율 광고 정리 및 A/B 테스트 최적화 자동 수행",
       "schedule": "At 09:01 AM, only on Monday",
-      "cronExpression": "0 9 * * 1",
-      "enabled": true,
       "nextRunAt": "2026-04-13T00:00:55.000Z",
       "lastRunAt": "2026-04-06T00:00:55.324Z"
     },
@@ -119,8 +109,6 @@
       "taskId": "cardnews-upload-trigger",
       "description": "Notion '📤 업로드하기' 상태 감지 → 인스타그램 자동 업로드 + 발행완료 처리",
       "schedule": "Every 30 minutes, between 09:00 AM and 10:59 PM, every day",
-      "cronExpression": "*/30 9-22 * * *",
-      "enabled": true,
       "nextRunAt": "2026-04-08T00:02:08.000Z",
       "lastRunAt": "2026-04-07T14:36:34.589Z"
     },
@@ -128,26 +116,22 @@
       "taskId": "sikmul-weekly-batch",
       "description": "매주 월요일 밤 — 이번 주 화/목/토 카드뉴스 3건 일괄 제작 + Drive 저장 + Notion 승인대기 + 캘린더 등록",
       "schedule": "At 10:09 PM, only on Monday",
-      "cronExpression": "0 22 * * 1",
-      "enabled": true,
       "nextRunAt": "2026-04-13T13:09:24.000Z",
       "lastRunAt": "2026-04-06T13:09:36.440Z"
     },
     {
       "taskId": "dashboard-data-refresh",
-      "description": "대시보드 data.json 6시간마다 동기화",
-      "schedule": "One-time: 4/8/2026, 12:30:24 AM",
-      "fireAt": "2026-04-07T15:30:24.000Z",
-      "enabled": false,
-      "lastRunAt": "2026-04-07T15:31:19.828Z"
+      "description": "대시보드 data.json 6시간마다 동기화 — Notion 파이프라인 승인대기/업로드하기 → pendingApprovals.cardNews (Drive 이미지 포함), scheduled-tasks 목록 → scheduledTasks, GitHub Pages 배포",
+      "schedule": "At 0 minutes past the hour, every 6 hours, every day",
+      "nextRunAt": "2026-04-08T03:04:42.000Z",
+      "lastRunAt": "2026-04-07T21:05:04.235Z"
     },
     {
       "taskId": "auto-quote-from-tally",
-      "description": "Tally 신규 접수건 자동 견적 생성 및 Google Drive 업로드",
-      "schedule": "Every 15 minutes, every hour, every day",
-      "cronExpression": "*/15 * * * *",
-      "enabled": true,
-      "nextRunAt": "2026-04-07T15:53:55.000Z"
+      "description": "Tally 신규 접수건 자동 견적 생성, Drive 업로드, Notion 푸시 + Gmail 알림",
+      "schedule": "At 09:09 AM, every day",
+      "nextRunAt": "2026-04-08T00:08:55.000Z",
+      "lastRunAt": "2026-04-07T15:39:14.792Z"
     }
   ],
   "stats": {
