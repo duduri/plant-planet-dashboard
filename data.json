@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T18:07:00+09:00",
+  "lastUpdated": "2026-04-07T23:42:42+09:00",
   "systemStatus": "normal",
   "apis": [
     {"name": "Notion API", "status": "connected"},
@@ -31,7 +31,7 @@
       "color": "green",
       "name": "인스타 자동 업로드",
       "schedule": "30분 간격 감지 · 09~23시",
-      "lastRun": "오늘 18:02 실행",
+      "lastRun": "오늘 23:36 실행",
       "status": "active"
     },
     {
@@ -119,8 +119,8 @@
       "name": "인스타 업로드 감지",
       "desc": "Notion '📤 업로드하기' 상태 감지 → 인스타 자동 업로드",
       "enabled": true,
-      "lastRunAt": "2026-04-07T09:02:23.578Z",
-      "nextRunAt": "2026-04-07T09:32:08.000Z"
+      "lastRunAt": "2026-04-07T14:36:34.589Z",
+      "nextRunAt": "2026-04-08T00:02:08.000Z"
     },
     {
       "taskId": "dashboard-data-refresh",
@@ -129,36 +129,9 @@
       "name": "대시보드 동기화",
       "desc": "Notion 파이프라인 → data.json → GitHub Pages 배포",
       "enabled": true,
-      "lastRunAt": "2026-04-07T09:04:57.481Z",
-      "nextRunAt": "2026-04-07T09:19:42.000Z"
+      "lastRunAt": "2026-04-07T14:42:42.000Z",
+      "nextRunAt": "2026-04-07T14:49:42.000Z"
     }
-  ],
-  "stats": {
-    "todayRuns": 6,
-    "errors": 0,
-    "connectedApis": 6,
-    "activeSkills": 8,
-    "pendingCount": 2
-  },
-  "skills": [
-    {"emoji": "📦", "name": "송장비서", "desc": "주문 수집·처리·송장"},
-    {"emoji": "🧾", "name": "견적 생성", "desc": "자동 견적서 산출"},
-    {"emoji": "🎨", "name": "카드뉴스", "desc": "소개형 · 8장 JPEG"},
-    {"emoji": "💬", "name": "대화형 카드뉴스", "desc": "뉴닉 스타일 말풍선"},
-    {"emoji": "🔧", "name": "문제해결 카드뉴스", "desc": "트러블슈팅 콘텐츠"},
-    {"emoji": "🏆", "name": "랭킹 카드뉴스", "desc": "TOP 5 추천형"},
-    {"emoji": "📤", "name": "인스타 업로드", "desc": "캐러셀 자동 게시"},
-    {"emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지"}
-  ],
-  "activityLog": [
-    {"time": "2026-04-07T09:04:57Z", "type": "schedule", "id": "dashboard-data-refresh", "action": "run", "title": "대시보드 동기화 실행"},
-    {"time": "2026-04-07T09:02:23Z", "type": "schedule", "id": "cardnews-upload-trigger", "action": "run", "title": "인스타 업로드 감지 실행"},
-    {"time": "2026-04-07T04:05:54Z", "type": "schedule", "id": "sikmul-tue-cardnews", "action": "run", "title": "화요일 안전망 카드뉴스 실행"},
-    {"time": "2026-04-07T02:03:42Z", "type": "schedule", "id": "daily-order-collection", "action": "run", "title": "주문 자동 수집 완료"},
-    {"time": "2026-04-06T13:09:36Z", "type": "schedule", "id": "sikmul-weekly-batch", "action": "run", "title": "주간 배치 제작 완료"},
-    {"time": "2026-04-06T00:00:55Z", "type": "schedule", "id": "meta-ads-weekly-optimization", "action": "run", "title": "Meta 광고 주간 최적화 완료"},
-    {"time": "2026-04-04T04:06:12Z", "type": "schedule", "id": "sikmul-sat-cardnews", "action": "run", "title": "토요일 랭킹 카드뉴스 완료"},
-    {"time": "2026-04-02T02:07:53Z", "type": "schedule", "id": "sikmul-thu-cardnews", "action": "run", "title": "목요일 문제해결 카드뉴스 완료"}
   ],
   "pendingApprovals": {
     "cardNews": [
@@ -196,5 +169,34 @@
         ]
       }
     ]
-  }
+  },
+  "stats": {
+    "todayRuns": 8,
+    "errors": 0,
+    "connectedApis": 6,
+    "activeSkills": 8,
+    "pendingCount": 2
+  },
+  "skills": [
+    {"emoji": "📦", "name": "송장비서", "desc": "주문 수집·처리·송장"},
+    {"emoji": "🧾", "name": "견적 생성", "desc": "자동 견적서 산출"},
+    {"emoji": "🎨", "name": "카드뉴스", "desc": "소개형 · 8장 JPEG"},
+    {"emoji": "💬", "name": "대화형 카드뉴스", "desc": "뉴닉 스타일 말풍선"},
+    {"emoji": "🔧", "name": "문제해결 카드뉴스", "desc": "트러블슈팅 콘텐츠"},
+    {"emoji": "🏆", "name": "랭킹 카드뉴스", "desc": "TOP 5 추천형"},
+    {"emoji": "📤", "name": "인스타 업로드", "desc": "캐러셀 자동 게시"},
+    {"emoji": "✍️", "name": "블로그 라이터", "desc": "분갈이 작업일지"}
+  ],
+  "activityLog": [
+    {"time": "2026-04-07T14:42:42Z", "type": "schedule", "id": "dashboard-data-refresh", "action": "run", "title": "대시보드 동기화 실행"},
+    {"time": "2026-04-07T14:36:34Z", "type": "schedule", "id": "cardnews-upload-trigger", "action": "run", "title": "인스타 업로드 감지 실행"},
+    {"time": "2026-04-07T09:04:57Z", "type": "schedule", "id": "dashboard-data-refresh", "action": "run", "title": "대시보드 동기화 실행"},
+    {"time": "2026-04-07T09:02:23Z", "type": "schedule", "id": "cardnews-upload-trigger", "action": "run", "title": "인스타 업로드 감지 실행"},
+    {"time": "2026-04-07T04:05:54Z", "type": "schedule", "id": "sikmul-tue-cardnews", "action": "run", "title": "화요일 안전망 카드뉴스 실행"},
+    {"time": "2026-04-07T02:03:42Z", "type": "schedule", "id": "daily-order-collection", "action": "run", "title": "주문 자동 수집 완료"},
+    {"time": "2026-04-06T13:09:36Z", "type": "schedule", "id": "sikmul-weekly-batch", "action": "run", "title": "주간 배치 제작 완료"},
+    {"time": "2026-04-06T00:00:55Z", "type": "schedule", "id": "meta-ads-weekly-optimization", "action": "run", "title": "Meta 광고 주간 최적화 완료"},
+    {"time": "2026-04-04T04:06:12Z", "type": "schedule", "id": "sikmul-sat-cardnews", "action": "run", "title": "토요일 랭킹 카드뉴스 완료"},
+    {"time": "2026-04-02T02:07:53Z", "type": "schedule", "id": "sikmul-thu-cardnews", "action": "run", "title": "목요일 문제해결 카드뉴스 완료"}
+  ]
 }
