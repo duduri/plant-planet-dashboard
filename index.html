@@ -95,9 +95,18 @@ body{font-family:Pretendard,-apple-system,sans-serif;background:var(--bg);color:
 .log-desc{font-size:11px;color:var(--txt2);margin-top:1px}
 .empty-box{text-align:center;padding:30px 20px;color:var(--txt3);font-size:13px}
 .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
-.stat-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s;font-family:inherit}
+.stat-box:active{transform:scale(.96);border-color:var(--green)}
+.stat-box.hot{border-color:var(--orange)}
 .stat-num{font-size:20px;font-weight:700}
 .stat-label{font-size:10px;color:var(--txt2);margin-top:2px}
+.cp-slides{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;flex-shrink:0}
+.cp-slides::-webkit-scrollbar{display:none}
+.cp-slide{width:72vw;max-width:300px;aspect-ratio:4/5;border-radius:12px;object-fit:cover;scroll-snap-align:center;flex-shrink:0;background:var(--card2);border:1px solid var(--border)}
+.cp-empty{width:72vw;max-width:300px;aspect-ratio:4/5;border-radius:12px;background:var(--card2);border:1px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;scroll-snap-align:center;flex-shrink:0;gap:4px;text-align:center;padding:20px}
+.cp-meta{padding:0 16px 8px;color:var(--txt2);font-size:11px;display:flex;gap:8px;flex-wrap:wrap}
+.cp-meta span{background:var(--card2);padding:3px 8px;border-radius:6px}
+.cp-caption{flex:1;overflow-y:auto;padding:0 20px 16px;font-size:13px;line-height:1.7;color:var(--txt2);white-space:pre-wrap;-webkit-overflow-scrolling:touch}
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.96);z-index:200;display:none;flex-direction:column}
 .modal-overlay.show{display:flex}
 .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;flex-shrink:0}
@@ -185,6 +194,19 @@ body{font-family:Pretendard,-apple-system,sans-serif;background:var(--bg);color:
     <button class="btn btn-reject" id="invReject" style="flex:1">❌ 보류</button>
   </div>
 </div>
+<div class="modal-overlay" id="cardPreview">
+  <div class="modal-header">
+    <span class="modal-title" id="cpTitle"></span>
+    <button class="modal-close" onclick="closeCardPreview()">✕</button>
+  </div>
+  <div class="cp-slides" id="cpSlides"></div>
+  <div class="cp-meta" id="cpMeta"></div>
+  <div class="cp-caption" id="cpCaption"></div>
+  <div class="modal-actions">
+    <button class="btn btn-approve" id="cpApprove" style="flex:1">✅ 게시 승인</button>
+    <button class="btn btn-reject" id="cpReject" style="flex:1">❌ 반려</button>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <script>
 const REPO='duduri/plant-planet-dashboard',ISSUE_URL=`https://github.com/${REPO}/issues/new`;
@@ -216,18 +238,24 @@ function renderInbox(){
   const total=cn.length+bp.length+inv.length;
   const badge=document.getElementById('inboxBadge');
   if(total>0){badge.textContent=total;badge.style.display='flex';}else badge.style.display='none';
+  const errs=DATA.stats?.errors||0;
   let h=`<div class="stats-bar">
-    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${DATA.stats?.todayRuns||0}</div><div class="stat-label">오늘 실행</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:${(DATA.stats?.errors||0)>0?'var(--red)':'var(--txt)'}">${DATA.stats?.errors||0}</div><div class="stat-label">오류</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:var(--blue)">${total}</div><div class="stat-label">승인 대기</div></div>
-    <div class="stat-box"><div class="stat-num">${DATA.stats?.activeSkills||0}</div><div class="stat-label">활성 스킬</div></div></div>`;
+    <button type="button" class="stat-box" onclick="goTab('log')"><div class="stat-num" style="color:var(--green)">${DATA.stats?.todayRuns||0}</div><div class="stat-label">오늘 실행</div></button>
+    <button type="button" class="stat-box${errs>0?' hot':''}" onclick="goTab('log')"><div class="stat-num" style="color:${errs>0?'var(--red)':'var(--txt)'}">${errs}</div><div class="stat-label">오류</div></button>
+    <button type="button" class="stat-box" onclick="statScrollToPending()"><div class="stat-num" style="color:var(--blue)">${total}</div><div class="stat-label">승인 대기</div></button>
+    <button type="button" class="stat-box" onclick="goTab('skills')"><div class="stat-num">${DATA.stats?.activeSkills||0}</div><div class="stat-label">활성 스킬</div></button></div>`;
   h+=`<div class="section-title">🎨 카드뉴스 게시 대기 <span class="cnt">${cn.length}건</span></div>`;
   if(!cn.length)h+=`<div class="card"><div class="empty-box">대기중인 카드뉴스가 없습니다</div></div>`;
   cn.forEach((it,i)=>{
-    h+=`<div class="card"><div class="card-header"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''}</div></div><span class="card-badge badge-pending">대기중</span></div>`;
-    h+=`<div class="img-scroll">${(it.images||[]).map((img,j)=>`<img class="img-thumb" src="${img}" onclick="openViewer(${i},${j})" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc5MCcgaGVpZ2h0PScxMTInPjxyZWN0IHdpZHRoPSc5MCcgaGVpZ2h0PScxMTInIGZpbGw9JyMyMzIzMjMnLz48dGV4dCB4PSc0NScgeT0nNTUnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyM4ODgnIGZvbnQtc2l6ZT0nMTEnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz7rr7jrpqzrs7TquLA8L3RleHQ+PHRleHQgeD0nNDUnIHk9JzcxJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPScjODg4JyBmb250LXNpemU9JzExJyBmb250LWZhbWlseT0nc2Fucy1zZXJpZic+7KSA67mE7KSRPC90ZXh0Pjwvc3ZnPg==';this.onclick=null">`).join('')}${!(it.images||[]).length?'<div style="width:90px;height:112px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:11px">미리보기 없음</div>':''}</div>`;
-    h+=`<div class="caption-preview">📝 ${it.caption||'캡션 없음'}</div>`;
-    h+=`<div class="action-row"><button class="btn btn-approve" onclick="doApprove('cardnews','${it.id}','${esc(it.title)}')">✅ 게시 승인</button><button class="btn btn-reject" onclick="doReject('cardnews','${it.id}','${esc(it.title)}')">❌ 반려</button></div></div>`;
+    const imgs=it.images||[];
+    h+=`<div class="card" id="cn-card-${i}"><div class="card-header" onclick="openCardPreview(${i})" style="cursor:pointer"><div><div class="card-title">${it.title}</div><div class="card-sub">${it.createdAt?fmtTime(it.createdAt):''} · ${it.contentType||''}</div></div><span class="card-badge badge-pending">대기중</span></div>`;
+    if(imgs.length){
+      h+=`<div class="img-scroll" onclick="openCardPreview(${i})">${imgs.map(img=>`<img class="img-thumb" src="${img}" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc5MCcgaGVpZ2h0PScxMTInPjxyZWN0IHdpZHRoPSc5MCcgaGVpZ2h0PScxMTInIGZpbGw9JyMyMzIzMjMnLz48dGV4dCB4PSc0NScgeT0nNjMnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyM4ODgnIGZvbnQtc2l6ZT0nMTEnPuuvuOumrOuztOq4sCDsl4bsnYw8L3RleHQ+PC9zdmc+'">`).join('')}</div>`;
+    }else{
+      h+=`<div class="img-scroll" onclick="openCardPreview(${i})" style="padding:0"><div style="width:100%;height:96px;background:var(--card2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;gap:6px">🖼️ 슬라이드 이미지 동기화 대기중 · 탭하여 상세 보기</div></div>`;
+    }
+    h+=`<div class="caption-preview" onclick="openCardPreview(${i})" style="cursor:pointer">📝 ${(it.caption||'캡션 없음').replace(/[<>]/g,'')}</div>`;
+    h+=`<div class="action-row"><button class="btn" style="flex:0 0 auto;padding:10px 14px;background:var(--card2);color:var(--txt2)" onclick="openCardPreview(${i})">👁️ 미리보기</button><button class="btn btn-approve" onclick="doApprove('cardnews','${it.id}','${esc(it.title)}')">✅ 승인</button><button class="btn btn-reject" onclick="doReject('cardnews','${it.id}','${esc(it.title)}')">❌ 반려</button></div></div>`;
   });
   h+=`<div class="section-title">✍️ 블로그 게시 대기 <span class="cnt">${bp.length}건</span></div>`;
   if(!bp.length)h+=`<div class="card"><div class="empty-box">대기중인 블로그 글이 없습니다</div></div>`;
@@ -284,6 +312,37 @@ function renderLog(){
   if(!(DATA.activityLog||[]).length)h+=`<div class="empty-box">📭 활동 로그가 없습니다</div>`;
   el.innerHTML=h;
 }
+function goTab(name){
+  const btn=document.querySelector(`.nav-item[data-tab="${name}"]`);
+  if(btn)btn.click();
+}
+function statScrollToPending(){
+  const el=document.querySelector('#tab-inbox .section-title');
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function openCardPreview(i){
+  const cn=DATA.pendingApprovals?.cardNews||[];if(!cn[i])return;const it=cn[i];
+  document.getElementById('cpTitle').textContent=it.title||'카드뉴스 미리보기';
+  const sl=document.getElementById('cpSlides');
+  const imgs=it.images||[];
+  if(imgs.length){
+    sl.innerHTML=imgs.map(u=>`<img class="cp-slide" src="${u}" onerror="this.onerror=null;this.style.display='none';this.insertAdjacentHTML('afterend','<div class=&quot;cp-empty&quot;>🖼️<div>이미지 로드 실패</div></div>')">`).join('');
+  }else{
+    sl.innerHTML=`<div class="cp-empty">🖼️<div style="font-weight:600;color:var(--txt2);margin-top:6px">슬라이드 동기화 대기중</div><div style="font-size:10px;line-height:1.5;margin-top:4px">Drive에서 슬라이드가<br>불러와지면 표시됩니다</div></div>`;
+  }
+  const meta=[];
+  if(it.contentType)meta.push(`<span>${it.contentType}</span>`);
+  if(it.scheduledDate)meta.push(`<span>📅 ${it.scheduledDate}</span>`);
+  if(it.uploadDay)meta.push(`<span>${it.uploadDay}</span>`);
+  if(it.plantKey)meta.push(`<span>🌿 ${it.plantKey}</span>`);
+  if(it.notionUrl)meta.push(`<span><a href="${it.notionUrl}" target="_blank" style="color:var(--blue);text-decoration:none">↗ Notion</a></span>`);
+  document.getElementById('cpMeta').innerHTML=meta.join('');
+  document.getElementById('cpCaption').textContent=it.caption||'(캡션 없음)';
+  document.getElementById('cpApprove').onclick=()=>{closeCardPreview();doApprove('cardnews',it.id,it.title);};
+  document.getElementById('cpReject').onclick=()=>{closeCardPreview();doReject('cardnews',it.id,it.title);};
+  document.getElementById('cardPreview').classList.add('show');document.body.style.overflow='hidden';
+}
+function closeCardPreview(){document.getElementById('cardPreview').classList.remove('show');document.body.style.overflow='';}
 function openViewer(ci,ii){
   const cn=DATA.pendingApprovals?.cardNews||[];if(!cn[ci])return;
   vImgs=cn[ci].images||[];vIdx=ii;
