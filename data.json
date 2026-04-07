@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T17:23:57+09:00",
+  "lastUpdated": "2026-04-07T17:35:00+09:00",
   "systemStatus": "normal",
   "apis": [
     { "name": "Notion API", "status": "connected" },
@@ -31,7 +31,7 @@
       "color": "green",
       "name": "인스타 자동 업로드",
       "schedule": "30분 간격 감지 · 09~23시",
-      "lastRun": "오늘 17:03 실행",
+      "lastRun": "오늘 17:32 실행",
       "status": "active"
     },
     {
@@ -57,7 +57,7 @@
       "day": "매일",
       "time": "06:04",
       "name": "주문 자동 수집",
-      "desc": "3개 플랫폼 주문 수집 · 미수집 시 자동 재시도",
+      "desc": "3개 플랫폼 주문 수집 · 미수직 시 자동 재시도",
       "enabled": true,
       "lastRunAt": "2026-04-07T02:03:42.070Z",
       "nextRunAt": "2026-04-07T21:03:36.000Z"
@@ -119,8 +119,8 @@
       "name": "인스타 업로드 감지",
       "desc": "Notion '📤 업로드하기' 상태 감지 → 인스타 자동 업로드",
       "enabled": true,
-      "lastRunAt": "2026-04-07T08:03:15.110Z",
-      "nextRunAt": "2026-04-07T08:32:08.000Z"
+      "lastRunAt": "2026-04-07T08:32:23.309Z",
+      "nextRunAt": "2026-04-07T09:02:08.000Z"
     },
     {
       "taskId": "dashboard-data-refresh",
@@ -129,12 +129,12 @@
       "name": "대시보드 동기화",
       "desc": "Notion 파이프라인 → data.json → GitHub Pages 배포",
       "enabled": true,
-      "lastRunAt": "2026-04-07T08:23:57.000Z",
-      "nextRunAt": "2026-04-07T08:34:42.000Z"
+      "lastRunAt": "2026-04-07T08:34:57.313Z",
+      "nextRunAt": "2026-04-07T08:49:42.000Z"
     }
   ],
   "stats": {
-    "todayRuns": 5,
+    "todayRuns": 6,
     "errors": 0,
     "connectedApis": 6,
     "activeSkills": 8,
@@ -152,14 +152,14 @@
   ],
   "activityLog": [
     {
-      "time": "2026-04-07T08:23:57Z",
+      "time": "2026-04-07T08:34:57Z",
       "type": "schedule",
       "id": "dashboard-data-refresh",
       "action": "run",
       "title": "대시보드 동기화 실행"
     },
     {
-      "time": "2026-04-07T08:03:15Z",
+      "time": "2026-04-07T08:32:23Z",
       "type": "schedule",
       "id": "cardnews-upload-trigger",
       "action": "run",
