@@ -1,6 +1,6 @@
 {
-  "_comment": "Static slide registry for dashboard cards. Keyed by dashboard short id. Source of truth for slide URLs per card. sync.py merges this with Notion DB to produce data.json.",
-  "dis_btn": {
+  "_comment": "slides data keyed by Notion 식물/주제 키 (canonical card_id). Synced 2026-04-09.",
+  "dischidia_button": {
     "title": "디시디아 버튼",
     "type": "conversation",
     "gdrive_folder": "",
@@ -15,7 +15,7 @@
       "https://lh3.googleusercontent.com/d/1VACtLal8W5KsZBsNikUstoPm7l-Jzcqo=w800"
     ]
   },
-  "rhipsalis_para": {
+  "rhipsalis_paradoxa": {
     "title": "립살리스 파라독스",
     "type": "conversation",
     "gdrive_folder": "",
@@ -30,7 +30,7 @@
       "https://lh3.googleusercontent.com/d/1faNJqU4xX78riuTKNhA4_iuUx1D3qh1x=w800"
     ]
   },
-  "obesa": {
+  "euphorbia_obesa": {
     "title": "몬스터 오베사",
     "type": "conversation",
     "gdrive_folder": "",
@@ -45,7 +45,7 @@
       "https://lh3.googleusercontent.com/d/1AreSY3WEXOweK7tkxyyluzo1OldLN1u2=w800"
     ]
   },
-  "cycad": {
+  "encephalartos_horridus": {
     "title": "소철 기린",
     "type": "conversation",
     "gdrive_folder": "",
@@ -60,7 +60,7 @@
       "https://lh3.googleusercontent.com/d/1tJKt2N4uySJ2m1UXoQ2qt1BPJR0YPjMt=w800"
     ]
   },
-  "albuca": {
+  "albuca_spiralis": {
     "title": "알부카 스피랄리스",
     "type": "conversation",
     "gdrive_folder": "1I1wZGUHBSd3BD0lrON2RPwK5_NqKxBca",
@@ -75,7 +75,7 @@
       "https://lh3.googleusercontent.com/d/1uAJLJ_e74JICjVl2C2HBlQhyXuNBQEOf=w800"
     ]
   },
-  "hang_top5": {
+  "ranking_hanging_plants_top5": {
     "title": "인테리어 행잉 플랜트 TOP 5",
     "type": "ranking",
     "gdrive_folder": "",
@@ -90,7 +90,7 @@
       "https://lh3.googleusercontent.com/d/1ZJqnVFlDfksM3s9cCT0BuEopCDC8MRS2=w800"
     ]
   },
-  "fern_top5": {
+  "ranking_ferns_top5": {
     "title": "고사리 TOP 5",
     "type": "ranking",
     "gdrive_folder": "",
@@ -105,7 +105,7 @@
       "https://lh3.googleusercontent.com/d/1EO76TJoRXIJEzDPJvwF1IKrV1yvu0wYk=w800"
     ]
   },
-  "fern_ts": {
+  "fern_troubleshooting": {
     "title": "고사리 트러블슈팅",
     "type": "problem",
     "gdrive_folder": "",
@@ -120,7 +120,7 @@
       "https://lh3.googleusercontent.com/d/1mLB5lo7PhZXYqqb0YFxJv2iIj0VGHoCa=w800"
     ]
   },
-  "rhipsalis_ts": {
+  "rhipsalis_overwatering": {
     "title": "립살리스 과습 트러블슈팅",
     "type": "problem",
     "gdrive_folder": "18Q5Fri0c38He8-zK20aqh6eZbDszQvy2",
@@ -135,7 +135,7 @@
       "https://lh3.googleusercontent.com/d/1lgPShDVE498Y7iIm6facZv_CkuQN0XIZ=w800"
     ]
   },
-  "spring_top5": {
+  "ranking_spring_plants_top5": {
     "title": "봄 시즌 추천 식물 TOP 5",
     "type": "ranking",
     "gdrive_folder": "1ACwGpjltYjOmV7kTserIL2_yd3J4Hbi1",
@@ -150,7 +150,7 @@
       "https://lh3.googleusercontent.com/d/1yDcd4i4MyTXKzFtSoPCGG_bYwZIwhqdl=w800"
     ]
   },
-  "dis_leaf": {
+  "dischidia_leaf_care": {
     "title": "디시디아 잎 케어 트러블슈팅",
     "type": "problem",
     "gdrive_folder": "",
@@ -165,7 +165,7 @@
       "https://lh3.googleusercontent.com/d/11e2RJ8ZRxeLB20l42A4u6PLzojvwGtgJ=w800"
     ]
   },
-  "pachy_horom": {
+  "pachypodium_horombense_problem": {
     "title": "파키포디움 호롬벤세 트러블슈팅",
     "type": "problem",
     "gdrive_folder": "1_dt83hNiJe6qlcoAEQa0NQBq8tUOuTaQ",
@@ -180,7 +180,7 @@
       "https://lh3.googleusercontent.com/d/1djZ6TMaEYn2131XhXgebOiYA4sBuofqR=w800"
     ]
   },
-  "air_top5": {
+  "ranking_air_purifying_top5": {
     "title": "공기정화 식물 TOP 5",
     "type": "ranking",
     "gdrive_folder": "",
