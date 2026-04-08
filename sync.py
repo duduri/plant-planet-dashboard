@@ -99,12 +99,30 @@ def get_number(prop):
     return prop.get("number")
 
 
-def page_to_card(page):
+# Map Notion '콘텐츠 타입' select names → dashboard card type
+TYPE_MAP = {
+    "랭킹": "ranking",
+    "문제해결": "problem",
+    "대화형": "conversation",
+    "트러블슈팅": "problem",
+    "ranking": "ranking",
+    "problem": "problem",
+    "conversation": "conversation",
+}
+
+
+def normalize_type(raw):
+    if not raw:
+        return "conversation"
+    return TYPE_MAP.get(raw, raw if raw in ("ranking", "problem", "conversation") else "conversation")
+
+
+def page_to_card(page, slides_db):
     props = page.get("properties", {})
     key = get_rich_text(props.get("식물/주제 키"))
     title = get_title(props.get("콘텐츠명"))
     status = get_select(props.get("상태"))
-    ctype = get_select(props.get("콘텐츠 타입"))
+    ctype_raw = get_select(props.get("콘텐츠 타입"))
     scheduled = get_date(props.get("예정 발행일"))
     published = get_date(props.get("실제 발행일"))
     ig_url = get_url(props.get("인스타그램 URL"))
@@ -112,22 +130,43 @@ def page_to_card(page):
     comments = get_number(props.get("댓글"))
 
     if not key:
-        # Fallback: use Notion page id (stripped) so it still shows in dashboard
         key = "notion_" + page.get("id", "").replace("-", "")[:12]
 
     section = SECTION_MAP.get(status or "", "queued")
+    slides_entry = slides_db.get(key) or {}
+    slides_urls = slides_entry.get("slides") or []
+    cover = slides_urls[0] if slides_urls else ""
+    # Prefer slides.json type (canonical render type); fall back to Notion
+    render_type = slides_entry.get("type") or ctype_raw
+    ctype = normalize_type(render_type)
+
+    # Dashboard date: scheduled uses 예정, published/queued fall back appropriately
+    if section == "published":
+        date_val = published or scheduled or ""
+    elif section == "scheduled":
+        date_val = scheduled or published or ""
+    else:
+        date_val = scheduled or published or ""
+
+    n_slides = len(slides_urls)
+    n_total = max(n_slides, 8 if ctype != "problem" else 8)  # default 8-slide carousel
+
     return {
         "id": key,
-        "title": title or "(제목 없음)",
+        "title": title or slides_entry.get("title") or "(제목 없음)",
+        "type": ctype,
+        "date": date_val or "",
+        "cover": cover,
+        "slides": slides_urls,
+        "n_slides": n_slides,
+        "n_total": n_total,
         "status": status or "— 미설정",
-        "content_type": ctype,
-        "scheduled_date": scheduled,
-        "published_date": published,
-        "instagram_url": ig_url or None,
+        "ig_url": ig_url or "",
+        "section": section,
+        "notion_page_id": page.get("id", ""),
+        "notion_url": page.get("url"),
         "likes": likes,
         "comments": comments,
-        "notion_url": page.get("url"),
-        "section": section,
     }
 
 
@@ -141,28 +180,26 @@ def main():
     pages = notion_query(token, DATABASE_ID)
     print(f"[sync] got {len(pages)} pages")
 
-    cards = [page_to_card(p) for p in pages]
-
-    # Mark which cards have rendered slides
-    slide_keys = set()
+    # Load slides.json so each card gets cover/slides/n_slides/n_total
+    slides_db = {}
     if os.path.exists(SLIDES_PATH):
         try:
             with open(SLIDES_PATH, encoding="utf-8") as f:
-                slides = json.load(f)
-            slide_keys = {k for k in slides.keys() if k != "_comment"}
+                raw = json.load(f)
+            slides_db = {k: v for k, v in raw.items() if k != "_comment"}
         except Exception as e:
             sys.stderr.write(f"[sync] WARN: could not read {SLIDES_PATH}: {e}\n")
-    for c in cards:
-        c["has_slides"] = c["id"] in slide_keys
 
-    # Sort: scheduled first by scheduled_date asc, then published by published_date desc, then queued
+    cards = [page_to_card(p, slides_db) for p in pages]
+
+    # Sort: scheduled asc by date, published desc, queued by title
     section_order = {"scheduled": 0, "queued": 1, "published": 2}
     def sort_key(c):
         sec = section_order.get(c["section"], 3)
         if c["section"] == "scheduled":
-            return (sec, c.get("scheduled_date") or "9999-12-31")
+            return (sec, c.get("date") or "9999-12-31")
         if c["section"] == "published":
-            return (sec, "-" + (c.get("published_date") or "0000-01-01"))
+            return (sec, "-" + (c.get("date") or "0000-01-01"))
         return (sec, c.get("title") or "")
     cards.sort(key=sort_key)
 
