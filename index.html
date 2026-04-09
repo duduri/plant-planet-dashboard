@@ -209,8 +209,26 @@ const SECTIONS=[{id:'scheduled',title:'📅 발행 예정'},{id:'queued',title:'
 
 function escHtml(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
+/* Status → section mapping (matches sync.py v3 SECTION_MAP) */
+const STATUS_SECTION={'📤 발행완료':'published','✅ 승인대기':'scheduled','📤 업로드하기':'scheduled','🎨 제작중':'queued','🔍 주제선정됨':'queued','⏭️ 스킵':'queued'};
+const CAT_TYPE={'🏆 랭킹형':'ranking','🚑 문제해결형':'problem','💬 대화형':'conversation','랭킹':'ranking','문제해결':'problem','대화형':'conversation'};
+
+function normCards(data){
+  /* Accept both sync.py format (data.cards[]) and dashboard-data-refresh format (data.pendingApprovals.cardNews[]) */
+  if(data.cards&&data.cards.length) return data.cards;
+  const raw=(data.pendingApprovals&&data.pendingApprovals.cardNews)||[];
+  return raw.map(c=>{
+    const st=c.status||'';
+    const sec=STATUS_SECTION[st]||STATUS_SECTION['✅ '+st]||STATUS_SECTION['🎨 '+st]||STATUS_SECTION['📤 '+st]||null;
+    if(!sec) return null; /* 미설정 등 매핑 없는 상태는 제외 */
+    const cat=c.category||'';
+    const tp=CAT_TYPE[cat]||(cat.includes('랭킹')?'ranking':cat.includes('문제')?'problem':'conversation');
+    return {id:c.id,title:c.title||'(제목 없음)',type:tp,date:c.publishDate||'',cover:c.cover||'',slides:c.slides||[],n_slides:(c.slides||[]).length,n_total:8,status:st,ig_url:c.ig_url||'',section:sec,notion_page_id:c.id,notion_url:'',likes:null,comments:null};
+  }).filter(Boolean);
+}
+
 function renderCN(data){
-  CN_DATA=data.cards||[];
+  CN_DATA=normCards(data);
   CN_MAP={};CN_DATA.forEach(x=>{CN_MAP[x.id]=x;});
   const counts={ranking:0,problem:0,conversation:0,scheduled:0,queued:0,published:0};
   CN_DATA.forEach(c=>{counts[c.type]=(counts[c.type]||0)+1;counts[c.section]=(counts[c.section]||0)+1;});
@@ -219,7 +237,7 @@ function renderCN(data){
   const root=document.getElementById('cn-sections');
   root.innerHTML='';
   for(const sec of SECTIONS){
-    const items=CN_DATA.filter(c=>c.section===sec.id).sort((a,b)=>a.date.localeCompare(b.date));
+    const items=CN_DATA.filter(c=>c.section===sec.id).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
     if(!items.length)continue;
     const card=document.createElement('div');
     card.className='card';
