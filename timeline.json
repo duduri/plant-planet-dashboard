@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-04-10T08:36:57.072374+09:00",
+  "tasks": [
+    {
+      "taskId": "daily-order-collection",
+      "description": "매일 아침 주문 수집 (6/7/8시 - 미수집 시 자동 재시도)",
+      "schedule": "매일 06:04 AM",
+      "cronExpression": "2 6,8,9,10,11 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T00:03:36.000Z",
+      "lastRunAt": "2026-04-09T23:04:04.678Z",
+      "repeating": true,
+      "icon": "📦",
+      "category": "주문"
+    },
+    {
+      "taskId": "sikmul-tue-cardnews",
+      "description": "화요일 카드뉴스 제작 (월요일 배치 누락 시)",
+      "schedule": "매주 화요일 13:04",
+      "cronExpression": "0 13 * * 2",
+      "enabled": true,
+      "nextRunAt": "2026-04-14T04:04:18.000Z",
+      "lastRunAt": "2026-04-07T04:05:54.887Z",
+      "repeating": false,
+      "icon": "🎨",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "sikmul-thu-cardnews",
+      "description": "목요일 카드뉴스 제작 (월요일 배치 누락 시)",
+      "schedule": "매주 목요일 11:08",
+      "cronExpression": "0 11 * * 4",
+      "enabled": true,
+      "nextRunAt": "2026-04-16T02:07:35.000Z",
+      "lastRunAt": "2026-04-09T02:07:52.823Z",
+      "repeating": false,
+      "icon": "🎨",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "sikmul-sat-cardnews",
+      "description": "토요일 카드뉴스 제작 (월요일 배치 누락 시)",
+      "schedule": "매주 토요일 13:06",
+      "cronExpression": "0 13 * * 6",
+      "enabled": true,
+      "nextRunAt": "2026-04-11T04:06:02.000Z",
+      "lastRunAt": "2026-04-04T04:06:12.253Z",
+      "repeating": false,
+      "icon": "🎨",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "meta-ads-weekly-optimization",
+      "description": "메타광고 주간 성과 분석 + 최적화",
+      "schedule": "매주 월요일 09:01",
+      "cronExpression": "0 9 * * 1",
+      "enabled": true,
+      "nextRunAt": "2026-04-13T00:00:55.000Z",
+      "lastRunAt": "2026-04-06T00:00:55.324Z",
+      "repeating": false,
+      "icon": "📣",
+      "category": "광고"
+    },
+    {
+      "taskId": "cardnews-upload-trigger",
+      "description": "인스타그램 자동 업로드 체크 (Notion 상태 감지)",
+      "schedule": "30분마다 (09~22시)",
+      "cronExpression": "*/30 9-22 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T00:02:08.000Z",
+      "lastRunAt": "2026-04-09T20:33:12.452Z",
+      "repeating": true,
+      "icon": "📤",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "sikmul-weekly-batch",
+      "description": "주간 카드뉴스 3건 일괄 제작 + Drive 저장 + Notion",
+      "schedule": "매주 월요일 22:09",
+      "cronExpression": "0 22 * * 1",
+      "enabled": true,
+      "nextRunAt": "2026-04-13T13:09:24.000Z",
+      "lastRunAt": "2026-04-06T13:09:36.440Z",
+      "repeating": false,
+      "icon": "🎨",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "auto-quote-from-tally",
+      "description": "Tally 신규 접수건 자동 견적 생성 + Gmail 알림",
+      "schedule": "매일 09:09",
+      "cronExpression": "0 9 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T00:08:55.000Z",
+      "lastRunAt": "2026-04-09T00:09:53.343Z",
+      "repeating": false,
+      "icon": "💰",
+      "category": "견적"
+    },
+    {
+      "taskId": "plant-planet-dashboard-sales-sync",
+      "description": "대시보드 매출탭 일일 동기화",
+      "schedule": "매일 09:11",
+      "cronExpression": "10 9 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T00:10:48.000Z",
+      "lastRunAt": null,
+      "repeating": false,
+      "icon": "💰",
+      "category": "매출"
+    },
+    {
+      "taskId": "dashboard-data-refresh",
+      "description": "대시보드 data.json 동기화 (스키마 충돌로 비활성화)",
+      "schedule": "6시간마다",
+      "cronExpression": "0 */6 * * *",
+      "enabled": false,
+      "nextRunAt": null,
+      "lastRunAt": "2026-04-09T21:04:53.017Z",
+      "repeating": true,
+      "icon": "🔄",
+      "category": "동기화"
+    },
+    {
+      "taskId": "daily-dashboard-sync",
+      "description": "대시보드 data.json+sales.json 재생성 (중복으로 비활성화)",
+      "schedule": "매일 09:05",
+      "cronExpression": "0 9 * * *",
+      "enabled": false,
+      "nextRunAt": null,
+      "lastRunAt": null,
+      "repeating": true,
+      "icon": "🔄",
+      "category": "동기화"
+    }
+  ]
+}
