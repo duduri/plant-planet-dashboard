@@ -266,9 +266,16 @@
     ]
   },
   "boston_fern_troubleshooting": {
-    "title": "보스턴고사리 트러블슈팅",
-    "type": "problem",
-    "gdrive_folder": "19j3d6uizjrz9DSfCFKsb_ePDmuCaqXb-",
-    "slides": []
+    "cover": "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_01_cover.jpg",
+    "slides": [
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_01_cover.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_02_photo_split.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_03_info_slide.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_04_info_slide.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_05_info_slide.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_06_info_slide.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_07_step_list.jpg",
+      "https://raw.githubusercontent.com/duduri/plant-planet-dashboard/main/images/boston_fern/slide_08_cta_closing.jpg"
+    ]
   }
 }
