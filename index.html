@@ -84,6 +84,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 .lb-cnt{font-size:13px;color:#94a3b8;min-width:50px;text-align:center}
 .lb-title{color:#fff;font-size:14px;margin-top:12px;text-align:center;max-width:90vw;font-weight:600}
 .lb-hint{color:#64748b;font-size:10px;margin-top:6px}
+/* Timeline tab */
+.gradient-cyan{background:linear-gradient(135deg,#06b6d4,#0e7490)}
+.tl-day{margin-bottom:16px}
+.tl-day-h{font-size:12px;font-weight:700;color:#94a3b8;margin-bottom:8px;padding-left:4px;display:flex;align-items:center;gap:6px}
+.tl-day-h .tl-today{background:#3b82f6;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700}
+.tl-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #1e293b;position:relative}
+.tl-item:last-child{border-bottom:none}
+.tl-line{display:flex;flex-direction:column;align-items:center;width:20px;flex-shrink:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.tl-dot.done{background:#22c55e}
+.tl-dot.next{background:#3b82f6;box-shadow:0 0 8px rgba(59,130,246,.6)}
+.tl-dot.future{background:#334155}
+.tl-dot.off{background:#64748b;opacity:.4}
+.tl-stem{width:2px;flex:1;background:#1e293b;margin-top:4px}
+.tl-body{flex:1;min-width:0}
+.tl-title{font-size:12px;font-weight:600;color:#e2e8f0;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.tl-title .tl-icon{font-size:14px}
+.tl-desc{font-size:10px;color:#64748b;line-height:1.4}
+.tl-time{font-size:10px;color:#94a3b8;font-weight:600}
+.tl-badge{font-size:8px;padding:1px 5px;border-radius:6px;font-weight:700}
+.tl-badge.done{background:rgba(34,197,94,.15);color:#22c55e}
+.tl-badge.upcoming{background:rgba(59,130,246,.15);color:#60a5fa}
+.tl-badge.repeating{background:rgba(251,191,36,.12);color:#fbbf24}
+.tl-badge.disabled{background:rgba(100,116,139,.15);color:#64748b}
+.tl-cat{font-size:9px;color:#64748b;background:#0f172a;padding:2px 6px;border-radius:6px;display:inline-block;margin-top:4px}
+.tl-section{margin-bottom:6px}
+.tl-section-h{font-size:11px;font-weight:700;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
 </style>
 </head><body>
 
@@ -182,9 +209,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 <tr><td>일반받침</td><td>8,000원</td></tr>
 </table></div></div>
 
+<div class="page" id="p-tl">
+<section class="hero gradient-cyan">
+<div class="hero-k">⏱ 자동화 타임라인</div>
+<div class="hero-v" id="tl-count">…</div>
+<div class="hero-sub" id="tl-summary">불러오는 중…</div>
+</section>
+<div id="tl-body"></div>
+</div>
+
 <nav class="tabs">
 <button class="tab active" onclick="go('sales')"><span class="tab-i">💰</span>매출</button>
 <button class="tab" onclick="go('cn')"><span class="tab-i">🎨</span>카드뉴스</button>
+<button class="tab" onclick="go('tl')"><span class="tab-i">⏱</span>타임라인</button>
 <button class="tab" onclick="go('meta')"><span class="tab-i">📣</span>메타광고</button>
 <button class="tab" onclick="go('pot')"><span class="tab-i">🪴</span>분갈이</button>
 </nav>
@@ -374,7 +411,7 @@ function go(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('p-'+n).classList.add('active');
-  document.querySelectorAll('.tab')[['sales','cn','meta','pot'].indexOf(n)].classList.add('active');
+  document.querySelectorAll('.tab')[['sales','cn','tl','meta','pot'].indexOf(n)].classList.add('active');
   window.scrollTo(0,0);
 }
 function showSlide(){
@@ -409,6 +446,107 @@ document.getElementById('lb').addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-touchX;
   if(Math.abs(dx)>50)navLb(dx>0?-1:1);
 });
+/* ── Timeline tab ── */
+function renderTimeline(tl){
+  const tasks=tl.tasks||[];
+  const now=new Date();
+  const kstOff=9*60*60*1000;
+  function toKST(iso){return iso?new Date(new Date(iso).getTime()):null;}
+  function fmtTime(d){return d?d.toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false}):'—';}
+  function fmtDate(d){return d?d.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',weekday:'short'}):'—';}
+  function dateKey(d){return d?d.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}):'—';}
+  function isToday(d){return d&&dateKey(d)===dateKey(now);}
+  function isPast(d){return d&&d<now;}
+
+  /* Build timeline entries: skip repeating tasks' duplicates, show as single "매일 반복" */
+  const enabled=tasks.filter(t=>t.enabled);
+  const disabled=tasks.filter(t=>!t.enabled);
+  const singular=enabled.filter(t=>!t.repeating);
+  const repeating=enabled.filter(t=>t.repeating);
+
+  /* For singular tasks, create entries for completed (lastRunAt) and upcoming (nextRunAt) */
+  const entries=[];
+  singular.forEach(t=>{
+    if(t.lastRunAt){
+      entries.push({...t,time:toKST(t.lastRunAt),state:'done'});
+    }
+    if(t.nextRunAt){
+      entries.push({...t,time:toKST(t.nextRunAt),state:isPast(toKST(t.nextRunAt))?'done':'future'});
+    }
+  });
+  /* Sort by time */
+  entries.sort((a,b)=>(a.time||0)-(b.time||0));
+
+  /* Find the next upcoming */
+  const nextIdx=entries.findIndex(e=>e.state==='future');
+  if(nextIdx>=0) entries[nextIdx].state='next';
+
+  /* Group by day */
+  const days={};
+  entries.forEach(e=>{
+    const dk=dateKey(e.time);
+    if(!days[dk])days[dk]={date:e.time,entries:[]};
+    days[dk].entries.push(e);
+  });
+
+  /* Stats */
+  const doneCount=entries.filter(e=>e.state==='done').length;
+  const upcomingCount=entries.filter(e=>e.state==='future'||e.state==='next').length;
+  document.getElementById('tl-count').textContent=`${enabled.length}개 활성`;
+  document.getElementById('tl-summary').textContent=`완료 ${doneCount} · 예정 ${upcomingCount} · 반복 ${repeating.length}개 · 비활성 ${disabled.length}개`;
+
+  const root=document.getElementById('tl-body');
+  root.innerHTML='';
+
+  /* Repeating tasks card */
+  if(repeating.length){
+    const rCard=document.createElement('div');
+    rCard.className='card';
+    rCard.innerHTML=`<div class="card-h">🔁 매일 반복 작업</div>`+repeating.map(t=>{
+      const lastDone=t.lastRunAt?fmtDate(toKST(t.lastRunAt))+' '+fmtTime(toKST(t.lastRunAt)):'아직 없음';
+      return `<div class="tl-item"><div class="tl-line"><div class="tl-dot done"></div></div><div class="tl-body"><div class="tl-title"><span class="tl-icon">${t.icon}</span>${escHtml(t.description)}</div><div class="tl-desc">${escHtml(t.schedule)} · 마지막: ${lastDone}</div><div><span class="tl-badge repeating">반복</span> <span class="tl-cat">${escHtml(t.category)}</span></div></div></div>`;
+    }).join('');
+    root.appendChild(rCard);
+  }
+
+  /* Day-by-day timeline */
+  const dayKeys=Object.keys(days).sort();
+  dayKeys.forEach(dk=>{
+    const day=days[dk];
+    const today=isToday(day.date);
+    const card=document.createElement('div');
+    card.className='card';
+    const todayBadge=today?'<span class="tl-today">TODAY</span>':'';
+    card.innerHTML=`<div class="tl-day-h">${fmtDate(day.date)} ${todayBadge}</div>`+
+      day.entries.map((e,i)=>{
+        const dotClass=e.state;
+        const badge=e.state==='done'?'<span class="tl-badge done">완료</span>':
+                    e.state==='next'?'<span class="tl-badge upcoming">다음</span>':
+                    '<span class="tl-badge upcoming">예정</span>';
+        const showStem=i<day.entries.length-1;
+        return `<div class="tl-item"><div class="tl-line"><div class="tl-dot ${dotClass}"></div>${showStem?'<div class="tl-stem"></div>':''}</div><div class="tl-body"><div class="tl-time">${fmtTime(e.time)} ${badge}</div><div class="tl-title"><span class="tl-icon">${e.icon}</span>${escHtml(e.description)}</div><div><span class="tl-cat">${escHtml(e.category)}</span></div></div></div>`;
+      }).join('');
+    root.appendChild(card);
+  });
+
+  /* Disabled tasks */
+  if(disabled.length){
+    const dCard=document.createElement('div');
+    dCard.className='card';
+    dCard.innerHTML=`<div class="card-h">⏸ 비활성화됨</div>`+disabled.map(t=>{
+      return `<div class="tl-item" style="opacity:.5"><div class="tl-line"><div class="tl-dot off"></div></div><div class="tl-body"><div class="tl-title"><span class="tl-icon">${t.icon}</span>${escHtml(t.description)}</div><div class="tl-desc">${escHtml(t.schedule)}</div><div><span class="tl-badge disabled">비활성</span> <span class="tl-cat">${escHtml(t.category)}</span></div></div></div>`;
+    }).join('');
+    root.appendChild(dCard);
+  }
+}
+
+function loadTimeline(){
+  fetch('./timeline.json?t='+Date.now()).then(r=>r.json()).then(renderTimeline).catch(e=>{
+    document.getElementById('tl-summary').textContent='⚠ 타임라인 로드 실패';
+  });
+}
+
 loadData();
+loadTimeline();
 </script>
 </body></html>
