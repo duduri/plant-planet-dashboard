@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-10T05:44:04.653422+09:00",
+  "lastUpdated": "2026-04-10T06:13:08.567217+09:00",
   "pendingApprovals": {
     "cardNews": [
       {
@@ -45,8 +45,8 @@
       "taskId": "daily-order-collection",
       "description": "매일 아침 주문 수집 (6/7/8시 - 미수집 시 자동 재시도)",
       "schedule": "At 06:04 AM, every day",
-      "nextRunAt": "2026-04-09T21:03:36.000Z",
-      "lastRunAt": "2026-04-09T02:03:53.837Z"
+      "nextRunAt": "2026-04-09T23:03:36.000Z",
+      "lastRunAt": "2026-04-09T21:03:47.071Z"
     },
     {
       "taskId": "sikmul-tue-cardnews",
@@ -94,8 +94,8 @@
       "taskId": "dashboard-data-refresh",
       "description": "대시보드 data.json 6시간마다 동기화",
       "schedule": "Every 6 hours",
-      "nextRunAt": "2026-04-09T21:04:42.000Z",
-      "lastRunAt": "2026-04-09T20:33:12.443Z"
+      "nextRunAt": "2026-04-10T03:04:42.000Z",
+      "lastRunAt": "2026-04-09T21:04:53.017Z"
     },
     {
       "taskId": "auto-quote-from-tally",
@@ -108,13 +108,15 @@
       "taskId": "daily-dashboard-sync",
       "description": "매일 아침 대시보드 전체 동기화 + GitHub 배포",
       "schedule": "At 09:05 AM, every day",
-      "nextRunAt": "2026-04-10T00:04:55.000Z"
+      "nextRunAt": "2026-04-10T00:04:55.000Z",
+      "lastRunAt": ""
     },
     {
       "taskId": "plant-planet-dashboard-sales-sync",
       "description": "매출탭 일일 자동 동기화",
       "schedule": "At 09:11 AM, every day",
-      "nextRunAt": "2026-04-10T00:10:48.000Z"
+      "nextRunAt": "2026-04-10T00:10:48.000Z",
+      "lastRunAt": ""
     }
   ]
 }
