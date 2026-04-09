@@ -22,9 +22,9 @@ SLIDES_PATH = "slides.json"
 
 SECTION_MAP = {
     "📤 발행완료": "published",
-    "🎨 제작중": "scheduled",
     "✅ 승인대기": "scheduled",
     "📤 업로드하기": "scheduled",
+    "🎨 제작중": "queued",
     "🔍 주제선정됨": "queued",
     "⏭️ 스킵": "queued",
 }
@@ -191,6 +191,8 @@ def main():
             sys.stderr.write(f"[sync] WARN: could not read {SLIDES_PATH}: {e}\n")
 
     cards = [page_to_card(p, slides_db) for p in pages]
+    # Exclude cards without an explicit status (dashboard should only show triaged items)
+    cards = [c for c in cards if c.get("status") and c["status"] != "— 미설정"]
 
     # Sort: scheduled asc by date, published desc, queued by title
     section_order = {"scheduled": 0, "queued": 1, "published": 2}
