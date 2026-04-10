@@ -1,36 +1,20 @@
 {
-  "generated_at": "2026-04-09T09:16:39.406716+09:00",
+  "generated_at": "2026-04-10T14:27:31.723582+09:00",
   "today": {
-    "date": "2026-04-09",
-    "revenue": 701170,
-    "orders": 28
+    "date": "2026-04-10",
+    "total_revenue": 318800,
+    "total_orders": 12
   },
   "month": {
-    "month": "2026-04",
-    "revenue": 7974130,
-    "orders": 418
+    "year_month": "2026-04",
+    "total_revenue": 8292930,
+    "total_orders": 430
   },
   "by_channel": {
-    "스마트스토어": {
-      "revenue": 4177080,
-      "orders": 270,
-      "share": 0.5238
-    },
-    "쿠팡": {
-      "revenue": 459750,
-      "orders": 18,
-      "share": 0.0577
-    },
-    "카페24": {
-      "revenue": 1670300,
-      "orders": 74,
-      "share": 0.2095
-    },
-    "오늘의집": {
-      "revenue": 1667000,
-      "orders": 56,
-      "share": 0.2091
-    }
+    "쿠팡": 18,
+    "카페24": 78,
+    "스마트스토어": 275,
+    "오늘의집": 59
   },
   "daily": [
     {
@@ -129,16 +113,27 @@
         "스마트스토어": 14,
         "오늘의집": 9
       }
+    },
+    {
+      "date": "2026-04-10",
+      "revenue": 318800,
+      "orders": 12,
+      "by_channel": {
+        "카페24": 4,
+        "스마트스토어": 5,
+        "오늘의집": 3
+      }
     }
   ],
   "channel_deliveries_month": {
-    "스마트스토어": 270,
     "쿠팡": 18,
-    "카페24": 74,
-    "오늘의집": 56
+    "카페24": 78,
+    "스마트스토어": 275,
+    "오늘의집": 59
   },
   "warnings": [
-    "스마트스토어: 가격 매핑 347/798건 (실패 451)",
-    "오늘의집: 가격 매핑 69/81건 (실패 12)"
+    "스마트스토어 price mapping: estimated (5/5 products matched)",
+    "오늘의집 price mapping: estimated (3/3 products matched)",
+    "No 쿠팡 orders file found for 2026-04-10"
   ]
 }
