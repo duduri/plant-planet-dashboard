@@ -2,13 +2,13 @@
   "generated_at": "2026-04-10T14:27:31.723582+09:00",
   "today": {
     "date": "2026-04-10",
-    "total_revenue": 318800,
-    "total_orders": 12
+    "revenue": 318800,
+    "orders": 12
   },
   "month": {
-    "year_month": "2026-04",
-    "total_revenue": 8292930,
-    "total_orders": 430
+    "month": "2026-04",
+    "revenue": 8292930,
+    "orders": 430
   },
   "by_channel": {
     "스마트스토어": {
