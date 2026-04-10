@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-10T11:54:04.785951+09:00",
+  "generated_at": "2026-04-10T15:43:19+09:00",
   "tasks": [
     {
       "taskId": "daily-order-collection",
-      "description": "4개 채널 일일 주문 자동 수집",
-      "schedule": "At 06:04 AM, every day",
+      "description": "매일 아침 4채널 주문 자동 수집",
+      "schedule": "매일 06:02, 08:02, 09:02, 10:02, 11:02",
       "cronExpression": "2 6,8,9,10,11 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-10T21:03:36.000Z",
@@ -14,9 +14,57 @@
       "category": "주문"
     },
     {
+      "taskId": "cardnews-upload-trigger",
+      "description": "Notion 업로드 상태 감지 → 인스타 자동 업로드",
+      "schedule": "매일 09~22시, 30분 간격",
+      "cronExpression": "*/30 9-22 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T07:02:08.000Z",
+      "lastRunAt": "2026-04-10T06:32:51.857Z",
+      "repeating": true,
+      "icon": "📤",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "dashboard-data-refresh",
+      "description": "[비활성] data.json 스키마 충돌로 중단",
+      "schedule": "6시간마다",
+      "cronExpression": "0 */6 * * *",
+      "enabled": false,
+      "nextRunAt": null,
+      "lastRunAt": "2026-04-09T21:04:53.017Z",
+      "repeating": true,
+      "icon": "🔄",
+      "category": "동기화"
+    },
+    {
+      "taskId": "daily-dashboard-sync",
+      "description": "[비활성] data.json 중복 태스크, Notion sync로 대체",
+      "schedule": "매일 09:05",
+      "cronExpression": "0 9 * * *",
+      "enabled": false,
+      "nextRunAt": null,
+      "lastRunAt": null,
+      "repeating": true,
+      "icon": "🔄",
+      "category": "동기화"
+    },
+    {
+      "taskId": "timeline-json-refresh",
+      "description": "대시보드 타임라인탭 자동 갱신",
+      "schedule": "3시간마다 :30분",
+      "cronExpression": "30 */3 * * *",
+      "enabled": true,
+      "nextRunAt": "2026-04-10T09:39:51.000Z",
+      "lastRunAt": "2026-04-10T06:40:34.831Z",
+      "repeating": true,
+      "icon": "🔄",
+      "category": "동기화"
+    },
+    {
       "taskId": "sikmul-tue-cardnews",
-      "description": "화요일 소개형 카드뉴스 안전망",
-      "schedule": "At 01:04 PM, only on Tuesday",
+      "description": "화요일 안전망 — 소개형 카드뉴스 제작",
+      "schedule": "매주 화요일 13:00",
       "cronExpression": "0 13 * * 2",
       "enabled": true,
       "nextRunAt": "2026-04-14T04:04:18.000Z",
@@ -27,8 +75,8 @@
     },
     {
       "taskId": "sikmul-thu-cardnews",
-      "description": "목요일 문제해결형 카드뉴스 안전망",
-      "schedule": "At 11:08 AM, only on Thursday",
+      "description": "목요일 안전망 — 문제해결형 카드뉴스 제작",
+      "schedule": "매주 목요일 11:00",
       "cronExpression": "0 11 * * 4",
       "enabled": true,
       "nextRunAt": "2026-04-16T02:07:35.000Z",
@@ -39,8 +87,8 @@
     },
     {
       "taskId": "sikmul-sat-cardnews",
-      "description": "토요일 랭킹형 카드뉴스 안전망",
-      "schedule": "At 01:06 PM, only on Saturday",
+      "description": "토요일 안전망 — 랭킹형 카드뉴스 제작",
+      "schedule": "매주 토요일 13:00",
       "cronExpression": "0 13 * * 6",
       "enabled": true,
       "nextRunAt": "2026-04-11T04:06:02.000Z",
@@ -50,33 +98,9 @@
       "category": "콘텐츠"
     },
     {
-      "taskId": "meta-ads-weekly-optimization",
-      "description": "메타광고 주간 성과 분석·최적화",
-      "schedule": "At 09:01 AM, only on Monday",
-      "cronExpression": "0 9 * * 1",
-      "enabled": true,
-      "nextRunAt": "2026-04-13T00:00:55.000Z",
-      "lastRunAt": "2026-04-06T00:00:55.324Z",
-      "repeating": false,
-      "icon": "📣",
-      "category": "광고"
-    },
-    {
-      "taskId": "cardnews-upload-trigger",
-      "description": "인스타그램 자동 업로드 트리거",
-      "schedule": "Every 30 minutes, between 09:00 AM and 10:59 PM, every day",
-      "cronExpression": "*/30 9-22 * * *",
-      "enabled": true,
-      "nextRunAt": "2026-04-10T04:32:08.000Z",
-      "lastRunAt": "2026-04-10T02:04:36.583Z",
-      "repeating": true,
-      "icon": "📤",
-      "category": "콘텐츠"
-    },
-    {
       "taskId": "sikmul-weekly-batch",
-      "description": "주간 카드뉴스 3건 일괄 제작",
-      "schedule": "At 10:09 PM, only on Monday",
+      "description": "월요일 밤 — 주간 카드뉴스 3건 일괄 제작",
+      "schedule": "매주 월요일 22:00",
       "cronExpression": "0 22 * * 1",
       "enabled": true,
       "nextRunAt": "2026-04-13T13:09:24.000Z",
@@ -86,21 +110,21 @@
       "category": "콘텐츠"
     },
     {
-      "taskId": "dashboard-data-refresh",
-      "description": "[비활성] 대시보드 data.json 갱신",
-      "schedule": "At 0 minutes past the hour, every 6 hours, every day",
-      "cronExpression": "0 */6 * * *",
-      "enabled": false,
-      "nextRunAt": null,
-      "lastRunAt": "2026-04-09T21:04:53.017Z",
-      "repeating": true,
-      "icon": "🔄",
-      "category": "동기화"
+      "taskId": "meta-ads-weekly-optimization",
+      "description": "메타광고 주간 성과분석 + 최적화",
+      "schedule": "매주 월요일 09:00",
+      "cronExpression": "0 9 * * 1",
+      "enabled": true,
+      "nextRunAt": "2026-04-13T00:00:55.000Z",
+      "lastRunAt": "2026-04-06T00:00:55.324Z",
+      "repeating": false,
+      "icon": "📣",
+      "category": "광고"
     },
     {
       "taskId": "auto-quote-from-tally",
-      "description": "Tally 접수건 자동 견적 생성",
-      "schedule": "At 09:09 AM, every day",
+      "description": "Tally 신규 접수 → 자동 견적 생성 + 알림",
+      "schedule": "매일 09:09",
       "cronExpression": "0 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-11T00:08:55.000Z",
@@ -110,21 +134,9 @@
       "category": "견적"
     },
     {
-      "taskId": "daily-dashboard-sync",
-      "description": "[비활성] 대시보드 data.json 동기화",
-      "schedule": "At 09:05 AM, every day",
-      "cronExpression": "0 9 * * *",
-      "enabled": false,
-      "nextRunAt": null,
-      "lastRunAt": null,
-      "repeating": true,
-      "icon": "🔄",
-      "category": "동기화"
-    },
-    {
       "taskId": "plant-planet-dashboard-sales-sync",
-      "description": "대시보드 매출탭 일일 동기화",
-      "schedule": "At 09:11 AM, every day",
+      "description": "대시보드 매출탭 일일 자동 동기화",
+      "schedule": "매일 09:10",
       "cronExpression": "10 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-11T00:10:48.000Z",
@@ -132,18 +144,6 @@
       "repeating": false,
       "icon": "💰",
       "category": "매출"
-    },
-    {
-      "taskId": "timeline-json-refresh",
-      "description": "타임라인 JSON 자동 갱신",
-      "schedule": "At 30 minutes past the hour, every 3 hours, every day",
-      "cronExpression": "30 */3 * * *",
-      "enabled": true,
-      "nextRunAt": "2026-04-10T06:39:51.000Z",
-      "lastRunAt": "2026-04-10T03:42:51.214Z",
-      "repeating": true,
-      "icon": "🔄",
-      "category": "동기화"
     }
   ]
 }
