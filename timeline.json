@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-10T15:43:19+09:00",
+  "generated_at": "2026-04-10T21:42:53+09:00",
   "tasks": [
     {
       "taskId": "daily-order-collection",
@@ -15,19 +15,19 @@
     },
     {
       "taskId": "cardnews-upload-trigger",
-      "description": "Notion 업로드 상태 감지 → 인스타 자동 업로드",
+      "description": "Notion 업로드 상태 감지 → 인스타 자동 게시",
       "schedule": "매일 09~22시, 30분 간격",
       "cronExpression": "*/30 9-22 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-10T07:02:08.000Z",
-      "lastRunAt": "2026-04-10T06:32:51.857Z",
+      "nextRunAt": "2026-04-10T13:02:08.000Z",
+      "lastRunAt": "2026-04-10T12:32:16.866Z",
       "repeating": true,
       "icon": "📤",
       "category": "콘텐츠"
     },
     {
       "taskId": "dashboard-data-refresh",
-      "description": "[비활성] data.json 스키마 충돌로 중단",
+      "description": "[비활성] data.json 갱신 — 스키마 충돌로 중단",
       "schedule": "6시간마다",
       "cronExpression": "0 */6 * * *",
       "enabled": false,
@@ -39,7 +39,7 @@
     },
     {
       "taskId": "daily-dashboard-sync",
-      "description": "[비활성] data.json 중복 태스크, Notion sync로 대체",
+      "description": "[비활성] data.json 재생성 — 중복 태스크로 중단",
       "schedule": "매일 09:05",
       "cronExpression": "0 9 * * *",
       "enabled": false,
@@ -51,12 +51,12 @@
     },
     {
       "taskId": "timeline-json-refresh",
-      "description": "대시보드 타임라인탭 자동 갱신",
-      "schedule": "3시간마다 :30분",
+      "description": "대시보드 타임라인 데이터 자동 갱신",
+      "schedule": "3시간마다 (xx:30)",
       "cronExpression": "30 */3 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-10T09:39:51.000Z",
-      "lastRunAt": "2026-04-10T06:40:34.831Z",
+      "nextRunAt": "2026-04-10T15:39:51.000Z",
+      "lastRunAt": "2026-04-10T12:39:59.997Z",
       "repeating": true,
       "icon": "🔄",
       "category": "동기화"
@@ -99,7 +99,7 @@
     },
     {
       "taskId": "sikmul-weekly-batch",
-      "description": "월요일 밤 — 주간 카드뉴스 3건 일괄 제작",
+      "description": "월요일 밤 주간 카드뉴스 3건 일괄 제작",
       "schedule": "매주 월요일 22:00",
       "cronExpression": "0 22 * * 1",
       "enabled": true,
@@ -111,7 +111,7 @@
     },
     {
       "taskId": "meta-ads-weekly-optimization",
-      "description": "메타광고 주간 성과분석 + 최적화",
+      "description": "메타광고 주간 성과 분석 및 최적화",
       "schedule": "매주 월요일 09:00",
       "cronExpression": "0 9 * * 1",
       "enabled": true,
@@ -123,7 +123,7 @@
     },
     {
       "taskId": "auto-quote-from-tally",
-      "description": "Tally 신규 접수 → 자동 견적 생성 + 알림",
+      "description": "Tally 신규 접수 → 자동 견적서 생성·발송",
       "schedule": "매일 09:09",
       "cronExpression": "0 9 * * *",
       "enabled": true,
