@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-09T23:31:01.258790+00:00",
+  "generated_at": "2026-04-10T23:26:48.354386+00:00",
   "source": "notion-sync",
   "database_id": "7cf5c9cd-b05a-4827-a83f-ff3a106a3b88",
   "counts": {
     "scheduled": 2,
-    "queued": 6,
-    "published": 10
+    "queued": 7,
+    "published": 11
   },
   "cards": [
     {
@@ -165,28 +165,36 @@
       "comments": null
     },
     {
-      "id": "encephalartos_horridus",
-      "title": "소철 기린 (엔케팔라토스 호리두스)",
+      "id": "ficus_elastica_problem",
+      "title": "우리 집 고무나무, 왜 잎이 자꾸 떨어질까요?",
       "type": "conversation",
-      "date": "",
-      "cover": "https://lh3.googleusercontent.com/d/1fJqp_5vQ-1i4M0ccbKfbtMxRS0m51F4g=w800",
-      "slides": [
-        "https://lh3.googleusercontent.com/d/1fJqp_5vQ-1i4M0ccbKfbtMxRS0m51F4g=w800",
-        "https://lh3.googleusercontent.com/d/15rowW5ndLYiu_4Auwfsro0zExUV5lnXV=w800",
-        "https://lh3.googleusercontent.com/d/1vZppv0Lw1m71PUW3vC2iGGW4QizFy1oY=w800",
-        "https://lh3.googleusercontent.com/d/1-iz_ap1Gyiq8XfoxehpgrGJxqmaISJGb=w800",
-        "https://lh3.googleusercontent.com/d/1H2QPHdu1wM9wtzACV56iX96lB1mNWhQQ=w800",
-        "https://lh3.googleusercontent.com/d/1LX2FYNISUxKmB39WlS1-9iFe_vSCU5fx=w800",
-        "https://lh3.googleusercontent.com/d/1kkxVAY4ejk3yI_IAOaCMOlnDlLeCTZn0=w800",
-        "https://lh3.googleusercontent.com/d/1tJKt2N4uySJ2m1UXoQ2qt1BPJR0YPjMt=w800"
-      ],
-      "n_slides": 8,
+      "date": "2026-04-10",
+      "cover": "",
+      "slides": [],
+      "n_slides": 0,
       "n_total": 8,
       "status": "🎨 제작중",
       "ig_url": "",
       "section": "queued",
-      "notion_page_id": "33c500b0-aeae-8145-8afe-cb47ace4e94d",
-      "notion_url": "https://www.notion.so/33c500b0aeae81458afecb47ace4e94d",
+      "notion_page_id": "33e500b0-aeae-81a4-a9b9-f1ffd28c27d0",
+      "notion_url": "https://www.notion.so/33e500b0aeae81a4a9b9f1ffd28c27d0",
+      "likes": null,
+      "comments": null
+    },
+    {
+      "id": "rhipsalis_troubleshooting",
+      "title": "우리 집 립살리스, 왜 자꾸 시들까요?",
+      "type": "conversation",
+      "date": "2026-04-10",
+      "cover": "",
+      "slides": [],
+      "n_slides": 0,
+      "n_total": 8,
+      "status": "🎨 제작중",
+      "ig_url": "",
+      "section": "queued",
+      "notion_page_id": "33e500b0-aeae-81ca-a931-ce3170885646",
+      "notion_url": "https://www.notion.so/33e500b0aeae81caa931ce3170885646",
       "likes": null,
       "comments": null
     },
@@ -468,6 +476,32 @@
       "section": "published",
       "notion_page_id": "336500b0-aeae-8191-826b-def910fbe01b",
       "notion_url": "https://www.notion.so/336500b0aeae8191826bdef910fbe01b",
+      "likes": null,
+      "comments": null
+    },
+    {
+      "id": "encephalartos_horridus",
+      "title": "소철 기린 (엔케팔라토스 호리두스)",
+      "type": "conversation",
+      "date": "2026-04-10",
+      "cover": "https://lh3.googleusercontent.com/d/1fJqp_5vQ-1i4M0ccbKfbtMxRS0m51F4g=w800",
+      "slides": [
+        "https://lh3.googleusercontent.com/d/1fJqp_5vQ-1i4M0ccbKfbtMxRS0m51F4g=w800",
+        "https://lh3.googleusercontent.com/d/15rowW5ndLYiu_4Auwfsro0zExUV5lnXV=w800",
+        "https://lh3.googleusercontent.com/d/1vZppv0Lw1m71PUW3vC2iGGW4QizFy1oY=w800",
+        "https://lh3.googleusercontent.com/d/1-iz_ap1Gyiq8XfoxehpgrGJxqmaISJGb=w800",
+        "https://lh3.googleusercontent.com/d/1H2QPHdu1wM9wtzACV56iX96lB1mNWhQQ=w800",
+        "https://lh3.googleusercontent.com/d/1LX2FYNISUxKmB39WlS1-9iFe_vSCU5fx=w800",
+        "https://lh3.googleusercontent.com/d/1kkxVAY4ejk3yI_IAOaCMOlnDlLeCTZn0=w800",
+        "https://lh3.googleusercontent.com/d/1tJKt2N4uySJ2m1UXoQ2qt1BPJR0YPjMt=w800"
+      ],
+      "n_slides": 8,
+      "n_total": 8,
+      "status": "📤 발행완료",
+      "ig_url": "https://www.instagram.com/p/DW8MWVqkv3h/",
+      "section": "published",
+      "notion_page_id": "33c500b0-aeae-8145-8afe-cb47ace4e94d",
+      "notion_url": "https://www.notion.so/33c500b0aeae81458afecb47ace4e94d",
       "likes": null,
       "comments": null
     }
