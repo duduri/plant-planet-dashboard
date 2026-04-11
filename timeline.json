@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-11T09:42:26+09:00",
+  "generated_at": "2026-04-11T15:56:26.634+09:00",
   "tasks": [
     {
       "taskId": "daily-order-collection",
@@ -7,8 +7,8 @@
       "schedule": "매일 06:00~11:00 (미수집 시 재시도)",
       "cronExpression": "2 6,8,9,10,11 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-11T01:03:36.000Z",
-      "lastRunAt": "2026-04-11T00:03:42.798Z",
+      "nextRunAt": "2026-04-11T21:03:36.000Z",
+      "lastRunAt": "2026-04-11T02:04:28.742Z",
       "repeating": true,
       "icon": "📦",
       "category": "주문"
@@ -16,18 +16,18 @@
     {
       "taskId": "cardnews-upload-trigger",
       "description": "Notion 업로드 상태 감지 → 인스타 자동 업로드",
-      "schedule": "매일 09~22시, 30분 간격",
+      "schedule": "매일 09:00~22:00 30분마다",
       "cronExpression": "*/30 9-22 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-11T01:02:08.000Z",
-      "lastRunAt": "2026-04-11T00:32:15.071Z",
+      "nextRunAt": "2026-04-11T04:02:08.000Z",
+      "lastRunAt": "2026-04-11T03:09:41.609Z",
       "repeating": true,
       "icon": "📤",
       "category": "콘텐츠"
     },
     {
       "taskId": "dashboard-data-refresh",
-      "description": "[비활성화] data.json 갱신 (스키마 충돌로 중단)",
+      "description": "[비활성] data.json 갱신 (Notion sync로 대체)",
       "schedule": "6시간마다",
       "cronExpression": "0 */6 * * *",
       "enabled": false,
@@ -39,7 +39,7 @@
     },
     {
       "taskId": "daily-dashboard-sync",
-      "description": "[비활성화] data.json 재생성 (중복 태스크)",
+      "description": "[비활성] data.json 재생성 (Notion sync로 대체)",
       "schedule": "매일 09:05",
       "cronExpression": "0 9 * * *",
       "enabled": false,
@@ -55,8 +55,8 @@
       "schedule": "3시간마다",
       "cronExpression": "30 */3 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-11T03:39:51.000Z",
-      "lastRunAt": "2026-04-11T00:39:58.052Z",
+      "nextRunAt": "2026-04-11T06:39:51.000Z",
+      "lastRunAt": "2026-04-11T03:43:56.946Z",
       "repeating": true,
       "icon": "🔄",
       "category": "동기화"
@@ -99,7 +99,7 @@
     },
     {
       "taskId": "sikmul-weekly-batch",
-      "description": "월요일 밤 주간 카드뉴스 3건 일괄 제작",
+      "description": "월요일 밤 — 주간 카드뉴스 3건 일괄 제작",
       "schedule": "매주 월요일 22:00",
       "cronExpression": "0 22 * * 1",
       "enabled": true,
@@ -124,7 +124,7 @@
     {
       "taskId": "auto-quote-from-tally",
       "description": "Tally 신규 접수 → 자동 견적 생성 + 알림",
-      "schedule": "매일 09:00",
+      "schedule": "매일 09:09",
       "cronExpression": "0 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-12T00:08:55.000Z",
