@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-11T15:56:26.634+09:00",
+  "generated_at": "2026-04-12T07:36:30+09:00",
   "tasks": [
     {
       "taskId": "daily-order-collection",
       "description": "매일 아침 4채널 주문 자동 수집",
-      "schedule": "매일 06:00~11:00 (미수집 시 재시도)",
+      "schedule": "매일 06:00~11:00 KST",
       "cronExpression": "2 6,8,9,10,11 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-11T21:03:36.000Z",
@@ -16,11 +16,11 @@
     {
       "taskId": "cardnews-upload-trigger",
       "description": "Notion 업로드 상태 감지 → 인스타 자동 업로드",
-      "schedule": "매일 09:00~22:00 30분마다",
+      "schedule": "매일 09~22시, 30분 간격",
       "cronExpression": "*/30 9-22 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-11T04:02:08.000Z",
-      "lastRunAt": "2026-04-11T03:09:41.609Z",
+      "nextRunAt": "2026-04-11T12:32:08.000Z",
+      "lastRunAt": "2026-04-11T10:19:09.379Z",
       "repeating": true,
       "icon": "📤",
       "category": "콘텐츠"
@@ -39,8 +39,8 @@
     },
     {
       "taskId": "daily-dashboard-sync",
-      "description": "[비활성] data.json 재생성 (Notion sync로 대체)",
-      "schedule": "매일 09:05",
+      "description": "[비활성] data.json 재생성 (중복 태스크)",
+      "schedule": "매일 09:05 KST",
       "cronExpression": "0 9 * * *",
       "enabled": false,
       "nextRunAt": null,
@@ -55,8 +55,8 @@
       "schedule": "3시간마다",
       "cronExpression": "30 */3 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-11T06:39:51.000Z",
-      "lastRunAt": "2026-04-11T03:43:56.946Z",
+      "nextRunAt": "2026-04-11T12:39:51.000Z",
+      "lastRunAt": "2026-04-11T10:36:07.623Z",
       "repeating": true,
       "icon": "🔄",
       "category": "동기화"
@@ -64,7 +64,7 @@
     {
       "taskId": "sikmul-tue-cardnews",
       "description": "화요일 안전망 — 소개형 카드뉴스 제작",
-      "schedule": "매주 화요일 13:00",
+      "schedule": "매주 화요일 13:00 KST",
       "cronExpression": "0 13 * * 2",
       "enabled": true,
       "nextRunAt": "2026-04-14T04:04:18.000Z",
@@ -76,7 +76,7 @@
     {
       "taskId": "sikmul-thu-cardnews",
       "description": "목요일 안전망 — 문제해결형 카드뉴스 제작",
-      "schedule": "매주 목요일 11:00",
+      "schedule": "매주 목요일 11:00 KST",
       "cronExpression": "0 11 * * 4",
       "enabled": true,
       "nextRunAt": "2026-04-16T02:07:35.000Z",
@@ -88,19 +88,19 @@
     {
       "taskId": "sikmul-sat-cardnews",
       "description": "토요일 안전망 — 랭킹형 카드뉴스 제작",
-      "schedule": "매주 토요일 13:00",
+      "schedule": "매주 토요일 13:00 KST",
       "cronExpression": "0 13 * * 6",
       "enabled": true,
-      "nextRunAt": "2026-04-11T04:06:02.000Z",
-      "lastRunAt": "2026-04-04T04:06:12.253Z",
+      "nextRunAt": "2026-04-18T04:06:02.000Z",
+      "lastRunAt": "2026-04-11T04:10:24.693Z",
       "repeating": false,
       "icon": "🎨",
       "category": "콘텐츠"
     },
     {
       "taskId": "sikmul-weekly-batch",
-      "description": "월요일 밤 — 주간 카드뉴스 3건 일괄 제작",
-      "schedule": "매주 월요일 22:00",
+      "description": "월요일 밤 주간 카드뉴스 3건 일괄 제작",
+      "schedule": "매주 월요일 22:00 KST",
       "cronExpression": "0 22 * * 1",
       "enabled": true,
       "nextRunAt": "2026-04-13T13:09:24.000Z",
@@ -112,7 +112,7 @@
     {
       "taskId": "meta-ads-weekly-optimization",
       "description": "메타광고 주간 성과 분석 및 최적화",
-      "schedule": "매주 월요일 09:00",
+      "schedule": "매주 월요일 09:00 KST",
       "cronExpression": "0 9 * * 1",
       "enabled": true,
       "nextRunAt": "2026-04-13T00:00:55.000Z",
@@ -123,8 +123,8 @@
     },
     {
       "taskId": "auto-quote-from-tally",
-      "description": "Tally 신규 접수 → 자동 견적 생성 + 알림",
-      "schedule": "매일 09:09",
+      "description": "Tally 신규 접수건 자동 견적 생성",
+      "schedule": "매일 09:09 KST",
       "cronExpression": "0 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-12T00:08:55.000Z",
@@ -136,7 +136,7 @@
     {
       "taskId": "plant-planet-dashboard-sales-sync",
       "description": "대시보드 매출탭 일일 자동 동기화",
-      "schedule": "매일 09:10",
+      "schedule": "매일 09:10 KST",
       "cronExpression": "10 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-12T00:10:48.000Z",
