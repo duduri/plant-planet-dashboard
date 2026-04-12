@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-12T22:34:29+09:00",
+  "generated_at": "2026-04-13T02:10:48.510+09:00",
   "tasks": [
     {
       "taskId": "daily-order-collection",
@@ -16,11 +16,11 @@
     {
       "taskId": "cardnews-upload-trigger",
       "description": "Notion 업로드 상태 감지 → 인스타 자동 업로드",
-      "schedule": "매일 09~22시, 30분 간격",
+      "schedule": "매일 09:00~22:00 30분 간격",
       "cronExpression": "*/30 9-22 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-13T00:02:08.000Z",
-      "lastRunAt": "2026-04-12T11:20:09.122Z",
+      "lastRunAt": "2026-04-12T13:34:17.754Z",
       "repeating": true,
       "icon": "📤",
       "category": "콘텐츠"
@@ -39,7 +39,7 @@
     },
     {
       "taskId": "daily-dashboard-sync",
-      "description": "[비활성] data.json 재생성 (Notion sync로 대체)",
+      "description": "[비활성] data.json 재생성 (중복 태스크)",
       "schedule": "매일 09:05 KST",
       "cronExpression": "0 9 * * *",
       "enabled": false,
@@ -55,27 +55,15 @@
       "schedule": "3시간마다",
       "cronExpression": "30 */3 * * *",
       "enabled": true,
-      "nextRunAt": "2026-04-12T15:39:51.000Z",
-      "lastRunAt": "2026-04-12T13:31:17.847Z",
+      "nextRunAt": "2026-04-12T18:39:51.000Z",
+      "lastRunAt": "2026-04-12T15:39:56.380Z",
       "repeating": true,
       "icon": "🔄",
       "category": "동기화"
     },
     {
-      "taskId": "sikmul-weekly-batch",
-      "description": "월요일 밤 주간 카드뉴스 3건 일괄 제작",
-      "schedule": "매주 월요일 22:00 KST",
-      "cronExpression": "0 22 * * 1",
-      "enabled": true,
-      "nextRunAt": "2026-04-13T13:09:24.000Z",
-      "lastRunAt": "2026-04-06T13:09:36.440Z",
-      "repeating": false,
-      "icon": "🎨",
-      "category": "콘텐츠"
-    },
-    {
       "taskId": "sikmul-tue-cardnews",
-      "description": "화요일 안전망 — 소개형 카드뉴스 누락 시 제작",
+      "description": "화요일 안전망 — 소개형 카드뉴스 제작",
       "schedule": "매주 화요일 13:00 KST",
       "cronExpression": "0 13 * * 2",
       "enabled": true,
@@ -87,7 +75,7 @@
     },
     {
       "taskId": "sikmul-thu-cardnews",
-      "description": "목요일 안전망 — 문제해결형 카드뉴스 누락 시 제작",
+      "description": "목요일 안전망 — 문제해결형 카드뉴스 제작",
       "schedule": "매주 목요일 11:00 KST",
       "cronExpression": "0 11 * * 4",
       "enabled": true,
@@ -99,12 +87,24 @@
     },
     {
       "taskId": "sikmul-sat-cardnews",
-      "description": "토요일 안전망 — 랭킹형 카드뉴스 누락 시 제작",
+      "description": "토요일 안전망 — 랭킹형 카드뉴스 제작",
       "schedule": "매주 토요일 13:00 KST",
       "cronExpression": "0 13 * * 6",
       "enabled": true,
       "nextRunAt": "2026-04-18T04:06:02.000Z",
       "lastRunAt": "2026-04-11T04:10:24.693Z",
+      "repeating": false,
+      "icon": "🎨",
+      "category": "콘텐츠"
+    },
+    {
+      "taskId": "sikmul-weekly-batch",
+      "description": "월요일 밤 — 주간 카드뉴스 3건 일괄 제작",
+      "schedule": "매주 월요일 22:00 KST",
+      "cronExpression": "0 22 * * 1",
+      "enabled": true,
+      "nextRunAt": "2026-04-13T13:09:24.000Z",
+      "lastRunAt": "2026-04-06T13:09:36.440Z",
       "repeating": false,
       "icon": "🎨",
       "category": "콘텐츠"
@@ -123,8 +123,8 @@
     },
     {
       "taskId": "auto-quote-from-tally",
-      "description": "Tally 신규 접수 → 자동 견적 생성 및 알림",
-      "schedule": "매일 09:09 KST",
+      "description": "Tally 신규 접수 → 자동 견적 생성·알림",
+      "schedule": "매일 09:00 KST",
       "cronExpression": "0 9 * * *",
       "enabled": true,
       "nextRunAt": "2026-04-13T00:08:55.000Z",
