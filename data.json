@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-06T23:41:08.958284+00:00",
+  "generated_at": "2026-05-07T23:43:51.001247+00:00",
   "source": "notion-sync",
   "database_id": "7cf5c9cd-b05a-4827-a83f-ff3a106a3b88",
   "counts": {
-    "scheduled": 13,
+    "scheduled": 14,
     "queued": 7,
     "published": 11
   },
@@ -253,6 +253,23 @@
       "section": "scheduled",
       "notion_page_id": "34f500b0-aeae-8186-bcbf-ecc02aaed360",
       "notion_url": "https://www.notion.so/5-TOP-5-34f500b0aeae8186bcbfecc02aaed360",
+      "likes": null,
+      "comments": null
+    },
+    {
+      "id": "pachypodium_spring_dormancy",
+      "title": "우리 집 파키포디움, 잎이 자꾸 떨어져요",
+      "type": "conversation",
+      "date": "2026-05-07",
+      "cover": "",
+      "slides": [],
+      "n_slides": 0,
+      "n_total": 8,
+      "status": "✅ 승인대기",
+      "ig_url": "",
+      "section": "scheduled",
+      "notion_page_id": "359500b0-aeae-811b-9a70-ff526a728e50",
+      "notion_url": "https://www.notion.so/359500b0aeae811b9a70ff526a728e50",
       "likes": null,
       "comments": null
     },
