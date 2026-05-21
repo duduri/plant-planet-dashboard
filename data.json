@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-19T23:54:25.072222+00:00",
+  "generated_at": "2026-05-21T00:00:30.790370+00:00",
   "source": "notion-sync",
   "database_id": "7cf5c9cd-b05a-4827-a83f-ff3a106a3b88",
   "counts": {
-    "scheduled": 14,
+    "scheduled": 15,
     "queued": 7,
     "published": 11
   },
@@ -270,6 +270,23 @@
       "section": "scheduled",
       "notion_page_id": "359500b0-aeae-811b-9a70-ff526a728e50",
       "notion_url": "https://www.notion.so/359500b0aeae811b9a70ff526a728e50",
+      "likes": null,
+      "comments": null
+    },
+    {
+      "id": "anthurium_clarinervium_leaf_browning",
+      "title": "안수리움 잎끝이 자꾸 갈색으로 타요",
+      "type": "conversation",
+      "date": "2026-05-21",
+      "cover": "",
+      "slides": [],
+      "n_slides": 0,
+      "n_total": 8,
+      "status": "✅ 승인대기",
+      "ig_url": "",
+      "section": "scheduled",
+      "notion_page_id": "366500b0-aeae-8135-a0c8-caa6b85deadf",
+      "notion_url": "https://www.notion.so/366500b0aeae8135a0c8caa6b85deadf",
       "likes": null,
       "comments": null
     },
